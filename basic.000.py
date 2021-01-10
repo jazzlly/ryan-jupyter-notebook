@@ -1,13 +1,40 @@
 # %% basic typye
-aInt = 1 + 1
-print(type(aInt))
+type(123)
 
-aFloat = 1.
-print(type(aFloat))
+#%%
+type(123.)
 
-aFloat = float(1)
-print(type(aFloat))
+#%%
+type(float(123))
 
+#%%
+type(True)
+
+#%%
+type(int('123'))
+
+#%%
+type(str(123))
+
+#%%
+type(bool('123'))
+
+#%%
+bool(123)
+
+#%%
+bool(0)
+
+#%% 
+bool(0.)
+
+#%% 
+bool('')
+
+#%%
+bool(None)
+
+#%%
 aComplex = 1.5 + 3.2j
 print(type(aComplex))
 print(aComplex.real)
@@ -35,12 +62,6 @@ aInt = 3 // 2  # 整除
 print(aInt)
 print(type(aInt))
 
-# %% basic op
-7 * 3.
-2**5
-print(8%3)
-
-
 # %%
 
 # if
@@ -59,18 +80,25 @@ a == True and b == False or not C == True
 
 # +=, -=, *=, /=, %=
 
+#%%
 # None like void, null, nil, ...
 # 函数如果没有返回语句，默认返回None
 no = print('test')
 if no == None:
   print('good')
 
+#%% 
+a=10
+if a > 10:
+  print("a > 10")
+elif a == 10:
+  print("a == 10")
+else:
+  print('a<10')
 
-
-for i in range(5):
-  print(random.randint(1, 10))
-
-
+# %%
+for i in range(0, 10, 2): # [0, 10), step 2
+  print(i)
 
 # %%
 
@@ -83,8 +111,7 @@ from requests import Session
 import keyword
 
 
-# %%
-help    # help
+#%%
 ml = []
 help(ml.sort())
 help(requests.sessions())
@@ -101,8 +128,24 @@ help()
 b = 'hello'
 type(b) # str
 
+#%%
+
 c = b + b # hellohello
 print(c)
 
+#%%
 d = 2*b # hellohello
 print(d)
+
+# %%
+
+while True:
+  name = input('please input a string:')
+  if name == 'stop':
+    break
+  elif name == 'continue':
+    continue
+  elif name == 'exit':
+    sys.exit()
+
+  print('hello: ' + name)
