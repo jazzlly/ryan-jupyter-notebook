@@ -5,6 +5,12 @@ Created on Fri May  8 05:59:32 2020
 @author: jiang
 """
 
+#%% 比较大小
+(1) < (2)
+
+#%% 
+(3,1) > (2, 5)
+
 #%%
 emptyTup = ()
 emptyTup
@@ -45,3 +51,13 @@ print(tup.index(7))
 print(list(reversed(tup)))
 
 print(sorted(tup))
+
+#%%
+a = (1, 2, 3, 4, 5, 6, 7)
+afilter = filter(lambda x: x <= 4, a)
+
+#%% 
+tuple(afilter)
+
+#%%
+len(tuple(afilter))

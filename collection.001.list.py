@@ -5,6 +5,25 @@
 import random
 import re
 
+#%%
+# 字符串也是序列
+# zodiac = '鼠牛虎兔龙蛇马羊猴鸡狗猪'
+zodiac = '猴鸡狗猪鼠牛虎兔龙蛇马羊'
+year = -3
+print(zodiac[year %12])
+
+#%%
+'狗' in zodiac
+
+#%%
+'卡' not in zodiac
+
+#%%
+'猫' * 3
+
+#%% 切片
+zodiac[0:4]
+
 # %%
 colors = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan']
 print(type(colors))
@@ -69,12 +88,18 @@ print(l)
 
 # append: Appends object at end.
 x = [1, 2, 3]
+x.append(3.5)
 x.append([4, 5])  # gives you: [1, 2, 3, [4, 5]]
+x
+#%%
+x = [1, 2, 3]
+x.remove(3) # 删除第一个值
 x
 
 #%%
 # extend: Extends list by appending elements from the iterable.
 x = [1, 2, 3]
+# x.extend(3.5) # error!
 x.extend([4, 5])  # gives you: [1, 2, 3, 4, 5]
 x
 
