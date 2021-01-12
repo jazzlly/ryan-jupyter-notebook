@@ -1,27 +1,33 @@
 # -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
 
 #%%
+emptyDict = {}
+emptyDict
 
-# 比较简便
+#%%
+type(emptyDict)
+
+#%%
+d1 = {'name': 'ryan', 'age': 42}
+d1
+
+#%%
 d4 = dict(name='ryan', age=42)
 print(d4)
 
-d1 = {'name': 'ryan', 'age': 42}
-print(d1)
+#%%
 
 d2 = dict({'name': 'ryan', 'age': 42})
 print(d2)
 
+#%%
 d3 = dict([('name', 'ryan'), ('age', 42)])
 print(d3)
 
+#%%
 print(d1 == d2 == d3 == d4)
 
+#%%
 d5 = {}
 print(d5)
 
@@ -34,12 +40,21 @@ print(d5 == d6)
 # 访问元素
 print(d1['name'])
 print(d1['age'])
+
+#%%
 print(d1.get('name'))
 print(d1.get('age'))
-print(d1.get('foo', 'null'))
 
+#%%
+print(d1.get('foobar', 'null'))
+print(d1.get('foobar'))
+
+#%%
+print(d1)
 print('bar' in d1)
 print('name' in d1)
+
+#%%
 
 d1['foo'] = 'foo ha'
 d1['bar'] = 3
@@ -49,6 +64,8 @@ print(d1)
 
 d1.pop('bar')
 print(d1)
+
+#%%
 
 print("len of d1: {}".format(len(d1)))
 

@@ -1,10 +1,22 @@
 #%%
 
+# for i in 可迭代对象
+
+#%%
+
 for i in range(5):  # [0,5)
   # for i in range(15, 20): # [15, 20)
   # for i in range(30, 40, 2): # [30, 40) step 2
   # for i in range(40, 30, -2): # [40, 30) step -2
   print('hi:' + str(i))
+
+#%%
+for c in 'hello':
+  print(c)
+
+#%% 格式化
+for i in range(10):
+  print("%s twice %s" %(2*i, i))
 
 #%% 模拟for循环
 
