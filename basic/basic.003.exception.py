@@ -2,14 +2,45 @@
 #%%
 '''
 try:
-    < 语句 >  # 运行代码
+    < 语句 >
 except  [(Error1, Error2, ...)[as e]]:
     < 语句 >  # 如果在try中引发了'Error1'异常
 except  [(Error3, Error4, ...)[as e]]:
     < 语句 >  # 如果在try中引发了'Error3'异常
+except Exception as e:
+    < 语句 > # Exception是通用的异常
 except:
     < 语句 >  # 如果在try中引发了其他异常
 '''
+
+#%%
+try:
+    year = int(input("请输入年份："))
+    print(year)
+except ValueError:
+    print("年份必须是数字")
+
+#%%
+try:
+    raise ValueError('foobar')
+except ValueError:
+    print("got foo error!")
+
+#%% 
+
+try:
+    f = open('a.html', 'r')
+except Exception as e:
+    print(e)
+finally:
+    # f.close()
+    print('foobar')
+
+
+
+
+#%%
+
 # 使用traceback可查看异常详细信息
 import traceback as tb
 
