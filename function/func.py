@@ -15,7 +15,8 @@ ftxt = open('./txt/sanguo.txt', encoding='GB18030')
 txt = ftxt.read().replace('\n','')
 print(txt)
 
-#%%
+#%% 上下文管理器
+
 with open('./txt/weapon.txt', encoding='utf-8') as f:
     weapons = f.read().split()
     print(weapons)
@@ -169,3 +170,46 @@ def mysleep():
     time.sleep(3);
 
 mysleep()
+
+#%% 装饰器的原理
+def tips(func):
+    def inner(a, b):
+        print("start")
+        func(a, b)
+        print("end")
+    return inner
+
+def add(a, b):
+    print(a + b)
+
+foo = tips(add)
+foo(1,2)
+
+#%% 装饰器
+
+@tips
+def add1(a,b):
+    print(a + b)
+
+add1(1,2)
+
+#%% 传递参数给装饰器
+def ttips(args):
+    def tips(func):
+        def inner(a, b):
+            print("start: %s, %s" %(args, func.__name__))
+            func(a, b)
+            print("end")
+        return inner
+    return tips
+
+@ttips('add')
+def add(a, b):
+    print(a+b)
+
+@ttips('sub')
+def sub(a, b):
+    print(a-b)
+
+add(1, 2)
+sub(5, 3)
