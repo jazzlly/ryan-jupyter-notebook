@@ -128,6 +128,13 @@ def sum(a):
 f2 = sum(2)
 f2(8)
 
+#%%
+def sum(a):
+    return lambda x: a + x;
+
+f2 = sum(2)
+f2(3)
+
 #%% clousure
 def counter(FIRST=0):
     cnt = [FIRST]
@@ -146,3 +153,19 @@ add5 = counter(5)
 print(add5())
 print(add5())
 print(add5())
+
+#%% 装饰器
+import time
+
+def timer(func):
+    def wrapper():
+        start = time.time();
+        func()
+        print("函数运行了%s" %(time.time() - start))
+    return wrapper
+
+@timer
+def mysleep():
+    time.sleep(3);
+
+mysleep()
