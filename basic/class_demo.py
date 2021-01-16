@@ -77,3 +77,19 @@ isinstance('123', object)
 
 #%%
 isinstance(None, object)
+
+#%%
+
+class Testwith():
+    def __enter__(self):
+        print("enter")
+    
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        if exc_tb:
+            print("exit failed %s" % exc_tb)
+        else:
+            print("exit ok")
+
+with Testwith():
+    print("run")
+    raise NameError("haha")
