@@ -38,12 +38,44 @@ emptyList = []
 print(emptyList)
 
 # %%
-
 myList = [1, 2, 'foo', 'bar']
-
 #%%
 myList.append('kaka')
 print(myList)
+
+#%%
+myList.insert(0, 'haha')
+myList
+
+#%%
+del(myList[-1])
+myList
+
+#%% 弹出列表最后一个元素
+p = myList.pop()
+print(p)
+print(myList)
+
+#%% 弹出任意位置的元素
+p = myList.pop(1)
+print(p)
+print(myList)
+
+#%% 根据值删除
+mylist = [1,1,2,2,3,3]
+mylist.remove(2)
+mylist
+
+#%% 模拟 removeAll
+mylist = [1,1,2,2,3,3]
+while True:
+    try:
+        mylist.remove(2)
+    except ValueError as ve:
+        print('remove done!')
+        break
+
+mylist
 
 #%%
 myList[1] = 100
@@ -188,9 +220,12 @@ del ml[1]             # delete by index
 ml
 
 #%%
-ml = [1, 2, 3, 4]
+ml = [1, 2, 3, 4, -1, -9, -8, -7]
 ml.sort()
-ml.reverse()
+ml
+
+#%%
+ml.sort(reverse=True)
 ml
 
 # %% 高级用法

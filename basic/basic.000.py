@@ -34,6 +34,22 @@ bool('')
 #%%
 bool(None)
 
+#%% 通过下划线分隔数字
+14_000_000
+
+#%%
+14_00.00_03
+
+#%%
+a,b,c = 1, 2, 3
+print(f'a:{a}, b:{b}, c:{c}')
+
+x,y,z = (1,2,3)
+print(f'x:{x}, y:{y}, z:{z}')
+
+#%% 常量
+MAX_CONNECTIONS=123
+
 #%%
 aComplex = 1.5 + 3.2j
 print(type(aComplex))

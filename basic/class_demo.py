@@ -3,7 +3,6 @@
 class Player():
     def __init__(self, name, hp):
         self.__name = name # __name变成私有变量了
-
         self.hp = hp
     
     def print_role(self):
@@ -78,7 +77,7 @@ isinstance('123', object)
 #%%
 isinstance(None, object)
 
-#%%
+#%% 装饰器
 
 class Testwith():
     def __enter__(self):

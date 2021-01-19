@@ -3,14 +3,13 @@
 # for i in 可迭代对象
 
 #%%
-
 for i in range(5):  # [0,5)
   # for i in range(15, 20): # [15, 20)
   # for i in range(30, 40, 2): # [30, 40) step 2
   # for i in range(40, 30, -2): # [40, 30) step -2
   print('hi:' + str(i))
 
-#%%
+#%% 字符串也是序列
 for c in 'hello':
   print(c)
 
@@ -18,10 +17,10 @@ for c in 'hello':
 for i in range(10):
   print("%s twice %s" %(2*i, i))
 
-#%% 模拟for循环
+#%% 迭代器
 
 alist = [0, 1, 2]
-itr = alist.__iter__() 
+itr = alist.__iter__()  # 获取迭代器
 print(itr)
 print(next(itr))
 print(next(itr))
@@ -33,13 +32,16 @@ colors = ['red', 'green', 'blue', 'yellow']
 for color in colors:
   print(color)
 
-#%%
-# 访问下标
+#%% 访问下标
 for i, c in enumerate(colors):
   print(i, '--->', c);
 
 #%%
 for color in reversed(colors):
+  print(color)
+
+#%%
+for color in colors[::-1]:
   print(color)
 
 #%%
@@ -53,7 +55,7 @@ colors = ['red', 'green', 'blue', 'yellow']
 n = min(len(names), len(colors))
 for i in range(n):
   print(names[i], "--->", colors[i])
-
+  
 #%%
 for n, c in zip(names, colors):
   print(n, '--->', c)
