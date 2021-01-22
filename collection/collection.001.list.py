@@ -84,7 +84,7 @@ print(myList)
 #%%
 print(myList[-1])  # 倒数第一个
 
-#%%
+#%% 切片操作
 print(myList[1:3]) # [1, 3)
 
 # %% 随机访问
@@ -136,8 +136,9 @@ x.extend([4, 5])  # gives you: [1, 2, 3, 4, 5]
 x
 
 # %%
-ids = [x for x in range(0, 5)]
+ids = [x*2 for x in range(0, 5)]
 ids
+
 #%%
 prices = [x for x in range(10, 15)]
 prices
@@ -266,3 +267,32 @@ quiz = [{'id': 3, 'q': 'fjkd', 'a': 'fkejk;'},
         {'id': 1, 'q': 'tejks', 'a': 'fjk'}]
 random.shuffle(quiz)
 quiz
+
+#%% 
+type(range(10))
+
+#%%
+min(range(1, 20))
+
+#%%
+sum(range(21))
+
+
+#%% 生成式
+
+[v*v for v in range(10)]
+
+#%%
+sum(range(1_000_001))
+
+
+#%% list clone
+
+list1 = list(range(5))
+list2 = list1[:]
+
+list1.append(100)
+list2.append(200)
+
+print(f'list1: {list1}')
+print(f'list2: {list2}')
