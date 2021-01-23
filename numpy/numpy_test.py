@@ -4,20 +4,32 @@
 # https://numpy.org/devdocs/user/absolute_beginners.html
 
 #%% 统计学基本概念
-'''
-均值，中位值，方差
-'''
 import numpy as np
 
+nparray = np.array([1, 2, 3])
+
+#%% 
+type(nparray) #numpy.ndarray
+
+#%% 
+nparray.dtype
+
+#%% 
+np.arange(5)
+
+#%%
 arange = np.arange(15)
-print("arange: \n{}".format(arange))
+print(f'arrange: {arange}')
 
+#%%
 sum = np.sum(arange)
-print("sum: \n{}".format(sum))
+print(f'sum of array: {sum}')
 
+#%%
 avg = np.average(arange)
-print("avg: \n{}".format(avg))
+print(f'avg: {avg}')
 
+#%%
 median = np.median(arange)
 print("median: \n{}".format(median))
 
