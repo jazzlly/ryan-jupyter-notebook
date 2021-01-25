@@ -1,0 +1,155 @@
+
+type Org {
+    id: ID!
+    name: String! @search(by: [trigram])
+    defCodeReal: String! @search(by: [trigram])
+    parent: Org
+    children: [Org] @hasInverse(field: parent)
+    ancestors: [Org]
+    descendants: [Org]
+    users: [User] @hasInverse(field: org)
+}
+
+type User {
+    id: ID!
+    name: String! @search(by: [trigram])
+    account: String! @search(by: [trigram])
+    org: Org!
+    defCodeReal: String! @search(by: [trigram])
+}
+
+
+type Student {
+   ...
+   courses: [Course]
+}
+type Course {
+   ...
+   students: [Student] @hasInverse(field: courses)  
+   // will it be able to detect right connections?
+}
+
+
+type User {
+    userID: ID!
+    name: String!
+    lastSignIn: DateTime
+    recentScores: [Float]
+    reputation: Int
+    active: Boolean
+}
+
+enum Tag {
+    GraphQL
+    Database
+    Question
+    ...
+}
+
+type Post {
+    ...
+    tags: [Tag!]!
+}
+
+enum Tag {
+    GraphQL
+    Database
+    Dgraph
+}
+
+type Post {
+    id: ID!
+    title: String!
+    text: String
+    datePublished: DateTime
+    tags: [Tag!]!
+    author: Author!
+}
+
+type Author {
+    id: ID!
+    name: String!
+    posts: [Post!]
+    friends: [Author]
+}
+
+interface Post {
+    id: ID!
+    text: String
+    datePublished: DateTime
+}
+
+type Question implements Post {
+    title: String!
+}
+
+type Comment implements Post {
+    commentsOn: Post!
+}
+
+
+enum Category {
+  Fish
+  Amphibian
+  Reptile
+  Bird
+  Mammal
+  InVertebrate
+}
+
+interface Animal {
+  id: ID!
+  category: Category @search
+}
+
+type Dog implements Animal {
+  breed: String @search
+}
+
+type Parrot implements Animal {
+  repeatsWords: [String]
+}
+
+type Cheetah implements Animal {
+  speed: Float
+}
+
+type Human {
+  name: String!
+  pets: [Animal!]!
+}
+
+union HomeMember = Dog | Parrot | Human
+
+type Zoo {
+  id: ID!
+  animals: [Animal]
+  city: String
+}
+
+type Home {
+  id: ID!
+  address: String
+  members: [HomeMember]
+}
+
+
+query {
+  queryHome {
+    address
+    members {
+      ... on Animal {
+        category
+      }
+      ... on Dog {
+        breed
+      }
+      ... on Parrot {
+        repeatsWords
+      }
+      ... on Human {
+        name
+      }
+    }
+  }
+}
