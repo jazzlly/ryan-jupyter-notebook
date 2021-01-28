@@ -1,9 +1,27 @@
 #%%
 def afunc(a, b, c):
     print('a:%s, b%s, c%s' % (a,b,c))
+    print(f'a:{a}, b:{b}, c:{c}')
 
 afunc(1,2,3)
 afunc(4, c=6, b=5)
+
+#%%
+def func1(a):
+    a = 20
+    print(a)
+    
+b='foo'
+func1(b) # 函数传递的是值, 如何传递引用？
+b
+
+#%% 默认参数
+def func2(a, b=20):
+    print('a:%s, b:%s' % (a,b))
+
+func2(10)
+func2(30, 20)
+func2(b=10, a=30)
 
 #%% 可变长参数
 def afunc(a, *others):
