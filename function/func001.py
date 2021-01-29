@@ -15,7 +15,7 @@ b='foo'
 func1(b) # 函数传递的是值, 如何传递引用？
 b
 
-#%% 默认参数
+#%% 默认参数 (可选参数)
 def func2(a, b=20):
     print('a:%s, b:%s' % (a,b))
 
@@ -25,10 +25,39 @@ func2(b=10, a=30)
 
 #%% 可变长参数
 def afunc(a, *others):
-    print(type(others))
+    print(type(others)) # 可变长参数被封装成tuple
     print(others)
 
 afunc(1,2,3)
+afunc(23, 'foo', 'bar')
+
+#%% 字典参数
+def afunc(a, **kwargs):
+    print(a)
+    print(f'type(kwargs):{type(kwargs)}')
+    print(f'kwargs: {kwargs}')
+    return kwargs
+
+afunc(123, k1='foo', k2='bar')
+
+#%% 在函数中修改列表, list是可变类型
+def afunc(list1, list2):
+    while list1:
+        list2.append(list1.pop())
+
+l1 = [1,2,3]
+l2 = []
+
+afunc(l1, l2)
+print(f'list1: {l1}, list2: {l2}')
+
+#%% clone list
+l1 = [1,2,3]
+l2 = []
+
+afunc(l1[:], l2) # clone list1
+print(f'list1: {l1}, list2: {l2}')
+
 
 #%% 迭代器
 
