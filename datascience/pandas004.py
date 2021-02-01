@@ -35,4 +35,74 @@ df.reindex(columns=list('a1b2c3d4e5'))
 df.reindex(list('x1y2z3abco'), columns=list('a1b2c3d4e5'))
 
 
+#%% 删除行
+df.drop('y')
 
+#%% 删除行
+df.drop('y', axis=0)
+
+#%% 删除列
+df.drop('c', axis=1)
+
+#%% 删除列
+df.drop('c', axis='columns')
+
+#%% 原地删除数据
+df.drop('z', axis=0, inplace=True)
+df.drop('c', axis=1, inplace=True)
+df
+
+#%%
+s = pd.Series(np.arange(5), index=list('abcde'))
+s
+
+#%%
+s.drop('c')
+
+#%%
+s.drop(list('bc'))
+
+#%% 通过key和下标都能索引到
+s['a']
+
+#%% 通过key和下标都能索引到
+s[0]
+
+#%% 数字切片不包括尾部
+s[3:5]
+
+#%% 索引切片包括尾部
+s['d':'e']
+
+#%% 
+s[['c', 'b', 'a']]
+
+#%%
+s[[3, 2, 1]]
+
+#%%
+s[s >= 2]
+
+#%%
+s['b':'c'] = 100
+s
+
+#%%
+df = pd.DataFrame(np.arange(20).reshape(4,5),
+    columns=list('abcde'), index=list('xyzo'))
+df
+
+#%% 获得列
+df['c']
+
+#%%
+df[['b', 'c']]
+
+#%%
+df['a':'e'] # TOD: 不支持？
+
+#%% 获取行
+df[:1]
+
+#%%
+df[:2]
