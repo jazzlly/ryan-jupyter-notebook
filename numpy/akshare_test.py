@@ -1,6 +1,6 @@
 #%%
 
-https://zhuanlan.zhihu.com/p/100185719
+# https://zhuanlan.zhihu.com/p/100185719
 
 
 #%%
@@ -43,3 +43,13 @@ print(macro_china_new_house_price_df)
 import akshare as ak
 macro_china_enterprise_boom_index_df = ak.macro_china_enterprise_boom_index()
 print(macro_china_enterprise_boom_index_df)
+
+#%%
+import numpy as np
+import matplotlib.pyplot as plt
+
+#%%
+import akshare as ak
+js_news_df = ak.js_news(indicator='最新资讯')
+print(js_news_df)
+print(type(js_news_df))

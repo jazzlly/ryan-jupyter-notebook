@@ -58,6 +58,31 @@ l2 = []
 afunc(l1[:], l2) # clone list1
 print(f'list1: {l1}, list2: {l2}')
 
+#%%
+import test_mod # mod是模块名称(模块文件名称)
+test_mod.foo(1,2,3)
+
+#%% import module as module alias
+import test_mod as tm
+tm.foo(1,2,3)
+
+#%% from module import function
+from test_mod import foo
+foo('a', 'b', 'c')
+
+#%% from module import function as function_alias
+from test_mod import foo as f
+
+f(1,2,3)
+#%%
+import test_mod as tm
+tm.foo(1,2,3)
+tm.bar(1,2,3)
+
+#%%
+from test_mod import *
+foo(1,2,3)
+bar(a=123,b=234)
 
 #%% 迭代器
 
