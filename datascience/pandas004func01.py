@@ -106,3 +106,65 @@ df[:1]
 
 #%%
 df[:2]
+
+#%% 过滤行
+
+df[df['c']>3]
+#%% 返回Boolean数组
+df > 12
+
+#%% 过滤并赋值
+df[df < 12] = 100
+df
+
+#%%
+#%%
+df = pd.DataFrame(np.arange(20).reshape(4,5),
+    columns=list('abcde'), index=list('xyzo'))
+df
+
+#%% 获取行
+df.loc['x']
+
+#%%
+type(df.loc['x']) # series
+
+#%% 选择行，列
+df.loc['x', 'b':'e']
+
+#%% 选择行，列
+df.loc['y', ['a', 'c', 'e']]
+
+#%% loc切片，选择到z行
+df.loc[:'z']
+
+#%%
+df.loc['z':]
+
+#%% 
+df.loc[:'z', :'c']
+
+
+#%% 选择行
+df.iloc[0]
+
+#%% 选择行，列
+df.iloc[0, 1:4]
+
+#%% 选择行，列
+df.iloc[2, [2, 4]]
+
+#%%
+df.iloc[[1,3], [2,4]]
+
+#%%
+df
+
+#%%
+df.iloc[:, :3]
+
+#%%
+df.iloc[:, :3][df.c>10]
+
+
+#%%
