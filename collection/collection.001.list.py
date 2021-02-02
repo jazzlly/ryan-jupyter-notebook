@@ -6,6 +6,11 @@ import random
 import re
 
 #%%
+
+a = list('abcd')
+a
+
+#%%
 # 字符串也是序列
 # zodiac = '鼠牛虎兔龙蛇马羊猴鸡狗猪'
 zodiac = '猴鸡狗猪鼠牛虎兔龙蛇马羊'
