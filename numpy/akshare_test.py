@@ -7,8 +7,40 @@
 # 找一下国泰多策略的历史图
 
 #%%
+import akshare as ak
+
+
+#%%
+import akshare as ak
+js_news_df = ak.js_news(indicator='最新资讯')
+print(js_news_df)
+js_news_df.to_excel('news.xlsx')
+
+# print(type(js_news_df))
+# js_news_df['content']
+for c in js_news_df['content']:
+    print(c)
+#%%
+for c in js_news_df['content']:
+    print(c)
+
+#%%
+for c in js_news_df['content']:
+    print(c)
+
+
+#%% 银行间拆借利率
 
 import akshare as ak
+rate_interbank_df = ak.rate_interbank(market="上海银行同业拆借市场", 
+    symbol="Shibor人民币", indicator="隔夜", need_page="5")
+# print(rate_interbank_df)
+# rate_interbank_df.del
+rate_interbank_df.plot()
+
+
+#%%
+
 macro_china_lpr_df = ak.macro_china_lpr()
 print(macro_china_lpr_df)
 
@@ -48,9 +80,3 @@ print(macro_china_enterprise_boom_index_df)
 #%%
 import numpy as np
 import matplotlib.pyplot as plt
-
-#%%
-import akshare as ak
-js_news_df = ak.js_news(indicator='最新资讯')
-print(js_news_df)
-print(type(js_news_df))
