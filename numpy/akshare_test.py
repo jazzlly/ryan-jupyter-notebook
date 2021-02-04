@@ -11,30 +11,27 @@ import akshare as ak
 
 #%%
 import akshare as ak
-js_news_df = ak.js_news_df(indicator='最新资讯')
+js_news_df = ak.js_news(indicator='最新资讯')
+# js_news_df = ak.js_news(indicator='最新数据')
 print(js_news_df)
 # js_news_df.to_excel('news.xlsx')
 
 # print(type(js_news_df))
 # js_news_df['content']
-for c in js_news_df:
-    print(type(c))
-#%%
-for c in js_news_df['content']:
-    print(c)
-
-#%%
-for c in js_news_df['content']:
-    print(c)
+for i in range(len(js_news_df)):
+    print(f"{js_news_df.iloc[i, 0]}")
+    print(f"{js_news_df.iloc[i, 1]}")
+    print()
 
 
 #%% 银行间拆借利率
 
 import akshare as ak
 rate_interbank_df = ak.rate_interbank(market="上海银行同业拆借市场", 
-    symbol="Shibor人民币", indicator="隔夜", need_page="5")
+    symbol="Shibor人民币", indicator="隔夜", need_page="10")
 # print(rate_interbank_df)
 # rate_interbank_df.del
+del rate_interbank_df['涨跌(BP)']
 rate_interbank_df.plot()
 
 
