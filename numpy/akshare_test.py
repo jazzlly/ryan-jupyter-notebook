@@ -9,17 +9,16 @@
 #%%
 import akshare as ak
 
-
 #%%
 import akshare as ak
-js_news_df = ak.js_news(indicator='最新资讯')
+js_news_df = ak.js_news_df(indicator='最新资讯')
 print(js_news_df)
-js_news_df.to_excel('news.xlsx')
+# js_news_df.to_excel('news.xlsx')
 
 # print(type(js_news_df))
 # js_news_df['content']
-for c in js_news_df['content']:
-    print(c)
+for c in js_news_df:
+    print(type(c))
 #%%
 for c in js_news_df['content']:
     print(c)

@@ -2,14 +2,20 @@
 import pandas as pd
 import numpy as np
 
-#%% dataframe本质上是一个添加了行和列索引的ndarray
+# dataframe本质上是一个添加了行和列索引的ndarray
 
 data = pd.DataFrame(np.arange(20).reshape(4,5), 
     columns=list('xyzlm'), index=list('abcd'))
 
 data.index.name = 'row'
 data.columns.name = 'col'
-data
+print(data)
+
+#%%
+
+#%%
+for i in range(len(data)):
+    print(data.iloc[i, [1, 3]])
 
 #%% 列标识
 data.columns

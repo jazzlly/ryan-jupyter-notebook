@@ -10,6 +10,10 @@ import pandas as pd
 obj = pd.Series(['a', 'b', 'c'])
 obj
 
+#%%
+for o in obj.index:
+    print(f'{o}: {obj[o]}')
+
 #%% Series = One-dimensional ndarray with axis labels (including time series).
 # 类似加了一个数轴的一维array
 
