@@ -101,6 +101,13 @@ ilist[:3]  # == [0:3)
 ilist[2:]  # == [2:-1]
 ilist[:]  # == [0:-1]
 
+#%% clone a list
+l2 = ilist[:]
+l2.pop()
+
+print(f'ilist: {ilist}')
+print(f'l2: {l2}')
+
 # %%
 
 mulList = [[1, 2, 3], [2, 3, 4]]
