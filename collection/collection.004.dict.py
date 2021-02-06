@@ -5,6 +5,10 @@ emptyDict = {}
 emptyDict
 
 #%%
+emptyDict = dict()
+emptyDict
+
+#%%
 type(emptyDict)
 
 #%%
@@ -12,17 +16,22 @@ d1 = {'name': 'ryan', 'age': 42}
 d1
 
 #%%
+d1['name']
+#%%
 d4 = dict(name='ryan', age=42)
-print(d4)
+d4
+# print(d4)
 
 #%%
 
 d2 = dict({'name': 'ryan', 'age': 42})
-print(d2)
+d2
+# print(d2)
 
 #%%
 d3 = dict([('name', 'ryan'), ('age', 42)])
-print(d3)
+# print(d3)
+d3
 
 #%%
 print(d1 == d2 == d3 == d4)
@@ -45,9 +54,11 @@ print(d1['age'])
 print(d1.get('name'))
 print(d1.get('age'))
 
-#%%
-print(d1.get('foobar', 'null'))
-print(d1.get('foobar'))
+#%% get可以避免没有key导致的KeyError异常
+
+print(d1.get('foobar', 'null')) # 'null'
+print(d1.get('foobar')) # None
+print(d1['foobar']) # KeyError
 
 #%%
 print(d1)
@@ -60,34 +71,39 @@ d1['foo'] = 'foo ha'
 d1['bar'] = 3
 print(d1)
 
-#%%
+#%% 删除信息
 
 d1.pop('bar')
 print(d1)
 
-#%%
+#%% 删除信息
+del(d1['foo'])
+d1
 
+#%%
 print("len of d1: {}".format(len(d1)))
 
+#%%
+
 d = {'b': 1, 'a': 2, 'c': 10}
-d_sorted_by_key = sorted(d.items(), key=lambda x: x[0])  # 根据字典键的升序排序
-d_sorted_by_value = sorted(d.items(), key=lambda x: x[1])  # 根据字典值的升序排序
+d_sorted_by_key = sorted(d.items(), key=lambda x: x[0])  
+# 根据字典键的升序排序
+d_sorted_by_value = sorted(d.items(), key=lambda x: x[1])  
+# 根据字典值的升序排序
 
 print(d_sorted_by_key)
 print(d_sorted_by_value)
 
 #%%
-
 products = {
     143121312: 100,
     432314553: 30,
     32421912367: 150
 }
-print('The price of product 432314553 is {}'.format(products[432314553]))
-
+print('The price of product 432314553 is {}'
+    .format(products[432314553]))
 
 #%% dict zip
-
 foo = dict(zip(('a', 'b'), (1, 2)))
 print(foo)
 # {'a': 1, 'b': 2}
@@ -98,3 +114,33 @@ print(foo)
 users = [User(1, 'foo', 'foopwd')]
 username_mapping = {u.username: u for u in users}
 user_id_mapping = {u.id: u for u in users}
+
+#%%
+a = {
+    'a':1,
+    'b':2,
+    'c':3
+}
+
+a
+#%% 遍历数组
+a = dict(zip('abcde', range(5)))
+
+for k,v in a.items():
+    print(f'key: {k}, value: {v}')
+
+#%%
+a.items()
+
+#%%
+a.keys()
+
+#%%
+for k in a.keys():
+    print(f'key: {k}')
+
+#%%
+for v in a.values():
+    print(f'value: {v}')
+
+

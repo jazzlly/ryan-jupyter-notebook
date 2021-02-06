@@ -6,6 +6,11 @@ import random
 import re
 
 #%%
+
+a = list('abcd')
+a
+
+#%%
 # 字符串也是序列
 # zodiac = '鼠牛虎兔龙蛇马羊猴鸡狗猪'
 zodiac = '猴鸡狗猪鼠牛虎兔龙蛇马羊'
@@ -95,6 +100,13 @@ ilist[1:4]  # slice [begin_idx:end_idx)
 ilist[:3]  # == [0:3)
 ilist[2:]  # == [2:-1]
 ilist[:]  # == [0:-1]
+
+#%% clone a list
+l2 = ilist[:]
+l2.pop()
+
+print(f'ilist: {ilist}')
+print(f'l2: {l2}')
 
 # %%
 
