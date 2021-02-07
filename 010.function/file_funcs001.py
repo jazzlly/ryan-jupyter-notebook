@@ -1,12 +1,25 @@
 #%%
 
+with open('./txt/name.txt',mode='r') as sanguo:
+    actors = sanguo.read().split('|')
+    print(actors)
+
+#%% read lines
+
+with open('./txt/weapon.txt', mode='r') as weapons:
+    for w in weapons:
+        w = w.strip()
+        if w:
+            print(w)
+            
+#%%
 f = open('./txt/name.txt', encoding='utf-8')
 actors = f.read().split('|')
 print(actors)
 
 #%%
 fWeapon = open('./txt/weapon.txt', encoding='utf-8')
-weapons = fWeapon.read().split()
+weapons = fWeapon.read().split() # split all white space
 print(weapons)
 
 #%%

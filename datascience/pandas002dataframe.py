@@ -15,7 +15,8 @@ print(data)
 
 #%%
 for i in range(len(data)):
-    print(data.iloc[i, [1, 3]])
+    print(f'{i}: {data.iloc[i, 1]}, {data.iloc[i, 3]}')
+    print()
 
 #%% 列标识
 data.columns
