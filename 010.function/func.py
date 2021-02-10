@@ -44,6 +44,14 @@ def afunc(a, *others):
 
 afunc(1,2,3)
 
+#%% key-value arguments
+
+def afunc(**kwargs):
+    print(kwargs)
+    print(type(kwargs))
+    
+afunc(foo='1', bar='2')
+
 #%% 迭代器
 
 alist = [1, 2, 3]
