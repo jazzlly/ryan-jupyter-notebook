@@ -11,7 +11,7 @@ import akshare as ak
 import akshare as ak
 js_news_df = ak.js_news(indicator='最新资讯')
 # js_news_df = ak.js_news(indicator='最新数据')
-print(js_news_df)
+# print(js_news_df)
 # js_news_df.to_excel('news.xlsx')
 
 # print(type(js_news_df))
@@ -22,16 +22,23 @@ for i in range(len(js_news_df)):
     print()
 
 #%% 央行公开操作
-
-
 # 逆回购：央行给商业银行贷款，商业银行抵押债券给央行。到期后商业银行还钱，收回债券
 
 import akshare as ak
 macro_china_gksccz_df = ak.macro_china_gksccz()
-print(macro_china_gksccz_df)
+# print(macro_china_gksccz_df)
+
+macro_china_gksccz_df.columns
+df = macro_china_gksccz_df
+print(df['operation_from_date'][0])
+print(type(df['operation_from_date'][0]))
+# df[df['operation_from_date' > '2021-01-01']]
+
+# filter_df=macro_china_gksccz_df[macro_china_gksccz_df['operation_from_date' > '2021-01-01']]
+print(df[::-1][df['operation_from_date'] > '2021-01-01'])
+
 
 #%% 银行间拆借利率
-
 import akshare as ak
 rate_interbank_df = ak.rate_interbank(market="上海银行同业拆借市场", 
     symbol="Shibor人民币", indicator="隔夜", need_page="10")
@@ -43,7 +50,6 @@ rate_interbank_df.plot()
 #%% 十年期国债
 # "bond_investing_global" # 全球债券行情数据
 
-
 import akshare as ak
 bond_investing_global_df = ak.bond_investing_global(
     country="中国", index_name="中国10年期国债",
@@ -51,7 +57,6 @@ bond_investing_global_df = ak.bond_investing_global(
 print(bond_investing_global_df)
 
 #%% 市盈率
-
 import akshare as ak
 stock_a_pe_df = ak.stock_a_pe(market="000016.XSHG")
 print(stock_a_pe_df)
@@ -63,7 +68,6 @@ print(stock_sse_summary_df)
 #%%
 
 #%%
-
 macro_china_lpr_df = ak.macro_china_lpr()
 print(macro_china_lpr_df)
 

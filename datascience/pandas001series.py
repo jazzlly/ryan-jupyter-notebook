@@ -3,10 +3,10 @@ import pandas as pd
 import numpy as np
 
 #%% series的本质是一个带索引的ndarray
+# series可以看成是一个列向量
 
 #%%
 import pandas as pd
-
 obj = pd.Series(['a', 'b', 'c'])
 obj
 
@@ -78,6 +78,9 @@ pd.notnull(obj)
 pd.isnull([0, 1, 2, pd.NaT, pd.NA, None, np.nan])
 
 #%% 
+import pandas as pd
+import numpy as np
+
 obj1 = pd.Series([10, 100], index=['y', 'z'])
 obj2 = pd.Series([1, 10], index=['x', 'y'])
 print(obj1)

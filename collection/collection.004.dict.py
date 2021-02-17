@@ -144,3 +144,74 @@ for v in a.values():
     print(f'value: {v}')
 
 
+#%%
+words = ['apple', 'banana', 'zombie', 'tangle', 'white',
+    'alpha', 'orange', 'green', 'news', 'mango',
+    'product', 'geek']
+
+by_letter = {}
+for word in words:
+    by_letter.setdefault(word[0], []).append(word)
+
+by_letter
+
+#%%
+from collections import defaultdict
+by_letter = defaultdict(list)
+
+for word in words:
+    by_letter[word[0]].append(word)
+
+by_letter
+
+#%% dict的key必须是不可变变量
+adict = {
+    (1,2):'a',
+    (2,3):'b',
+    (3,4):'c'
+}
+
+print(f'{adict[(2,3)]}')
+
+#%% hash化, 只有变量能够被hash化，才能作为dict的key
+hash('123456789')
+#%% 
+hash((1,2,3))
+
+#%%
+hash((1,2,3, [4,5,6])) # !TypeError
+
+#%% 推导式
+# [expr for val in collection if condition]
+
+#%%
+
+words = ['foo', 'bar', 'baz', 'wahahah', 'apple', 'orange']
+lens = [len(word) for word in words]
+lens
+
+#%%
+lens = list(map(len, words))
+lens
+
+#%%
+lens = list(map(lambda x: len(x), words))
+lens
+
+
+#%% 嵌套推导式
+all_words = [['foo', 'bar', 'baz'], 
+        ['wahahah', 'apple', 'orange']]
+
+two_es = [word for words in all_words 
+    for word in words if word.count('a') >= 2]
+two_es
+
+#%%
+flattext = [word for words in all_words
+    for word in words]
+flattext
+
+#%%
+tup = [[x for x in words] for words in all_words]
+tup

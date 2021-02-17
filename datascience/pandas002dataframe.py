@@ -3,19 +3,26 @@ import pandas as pd
 import numpy as np
 
 # dataframe本质上是一个添加了行和列索引的ndarray
-
 data = pd.DataFrame(np.arange(20).reshape(4,5), 
     columns=list('xyzlm'), index=list('abcd'))
 
 data.index.name = 'row'
 data.columns.name = 'col'
-print(data)
+data
 
-#%%
+#%% data.iloc[row, col]
 
-#%%
 for i in range(len(data)):
-    print(f'{i}: {data.iloc[i, 1]}, {data.iloc[i, 3]}')
+    print(f'row {i}: ', end='')
+    for j in range(len(data.columns)):
+        print(f'{data.iloc[i, j]}, ', end='')
+    print()
+
+#%% data.loc[row, col]
+
+for r in data.index:
+    for c in data.columns:
+        print(f'{data.loc[r, c]}, ', end='')
     print()
 
 #%% 列标识
@@ -36,16 +43,58 @@ len(data)
 #%% 列数
 data.columns.size
 
-#%% 获取第一行
-data[0:1]
+#%% 数组下标获取成员 data[col][row]
+data['x']['c']
+
+#%% 获取列 data[col]
+data['x'] # seria for col['x']
+
+#%% 通过获取列，并通过value过滤
+data['x'][_>=10]
+
+#%% 获取多列
+data[['x', 'z']]
+
+#%% 获取多列并过滤
+data[['x', 'z']][data['x'] > 10][data['z'] > 10]
 
 #%% 
-data[2:4]
+data[:][data['x'] > 10]
+
+#%% data.loc[row][col]
+data.loc['a']['x']
 
 #%%
+data.loc['a'] 
+# type(data.loc['a'])  # series, 行向量的转置
+
+#%% data.iloc[row][col]
+data.iloc[0][0]
+
+#%% 获取行, 转化为series
+data.iloc[0]
+
+#%%  dataframe切片返回的是切片
+# 通过切片获取行， 获取第一行。返回的是dataframe
+data[0:1]
+
+#%%
+data[:]
+
+#%% 
+data[::-1]
+
+#%%
+data[0:1]['x']['a']
+
+
+#%% dataframe切片返回的是dataframe
+data[2:4]
+
+#%% dataframe切片返回的是切片
 type(data[0:1]) # dataframe
 
-#%% 获取一列
+#%% 获取一列, return serias
 data['x'] 
 
 #%%
@@ -66,15 +115,6 @@ data
 
 #%%
 # data[4:] = [20] * 4
-#%%
-
-data = ((1,2,3), (4,5,6), (7,8,9))
-df3 = pd.DataFrame(data, columns=['a', 'b', 'c'], 
-    index=['x', 'y', 'z'])
-df3
-
-#%% 获取列
-df3.b
 
 #%%
 
@@ -92,6 +132,9 @@ df.head()
 
 #%% 输出指定列
 pd.DataFrame(df, columns=['c3', 'c1'])
+
+#%% reverse columns
+pd.DataFrame(df, columns=df.columns[::-1])
 
 #%%
 pd.DataFrame(df, columns=['c1', 'col_not_exist'])

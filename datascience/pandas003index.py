@@ -1,7 +1,6 @@
 #%%
 import pandas as pd
 import numpy as np
-from pandas._libs import indexing
 
 obj= pd.Series(np.arange(4), index=list('abcd'))
 obj
@@ -9,9 +8,6 @@ obj
 #%% 索引是只读的
 index = obj.index
 type(index)
-
-#%%
-index[0:]
 
 #%% int64类型index
 idx = pd.Index(np.arange(10))

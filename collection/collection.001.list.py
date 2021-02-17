@@ -155,6 +155,18 @@ ids
 prices = [x for x in range(10, 15)]
 prices
 
+
+#%%
+import json
+objs = [
+    {
+        'foo': 'bar',
+        'age': age
+    }   
+    for age in range(20, 30)]
+
+objs
+print(json.dumps(objs, indent=2, default=str))
 #%%
 products = list(zip(ids, prices))
 products
@@ -308,3 +320,7 @@ list2.append(200)
 
 print(f'list1: {list1}')
 print(f'list2: {list2}')
+
+#%% 推导式
+
+# [expr for val in collection if condition]

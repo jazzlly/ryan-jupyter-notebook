@@ -68,8 +68,8 @@ print(f'a:{a}, b:{b}')
 _
 
 #%%
-
-
+tup = tuple('11223344')
+tup.count('4')
 
 #%% 比较大小
 (1) < (2)
@@ -80,11 +80,6 @@ _
 #%%
 emptyTup = ()
 emptyTup
-
-#%%
-tup = (1, 2, 3)
-a, b, c = tup
-print('a: {}, b: {}, c: {}'.format(a, b, c))
 
 #%%
 tup = (1, 2, 'hahaha')
@@ -100,10 +95,6 @@ print(tup[-1])
 
 #%%
 print(tup[1:3])
-
-#%%
-mulTup = ((1,2,3),(2,3,4))
-print(mulTup)
 
 #%%
 print(list(tup))

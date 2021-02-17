@@ -3,13 +3,10 @@
 import numpy as np
 import pandas as pd
 
-#%%
-
 s = pd.Series(list('zyx'), index=list('cba'))
 s
 
 #%% 重建索引并返回新的series
-
 s1 = s.reindex(list('abc'))
 s1
 

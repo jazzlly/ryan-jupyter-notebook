@@ -12,7 +12,7 @@ doc = {
     'timestamp': datetime.now()
 }
 
-res = es.index(index='py-demo-index', id=2, body=doc)
+res = es.index(index='py-demo-index', id=3, body=doc)
 print(res['result'])
 
 #%%
@@ -36,7 +36,6 @@ res = es.search(index='py-demo-index',
 import json
 for hit in res['hits']['hits']:
     print(json.dumps(hit['_source'], indent=2))
-
 
 #%%
 import json
@@ -74,7 +73,6 @@ hosts=(
         'ip': '192.168.11.27'
     },
 )
-
 
 docs=[]
 for t in range(int(time.time()), int(time.time() - time.time()/100), -60):
@@ -121,4 +119,8 @@ actions = [
   for j in range(0, 10)
 ]
 
-helpers.bulk(es, actions)
+
+#%% 
+import akshare as ak
+macro_china_gksccz_df = ak.macro_china_gksccz()
+
