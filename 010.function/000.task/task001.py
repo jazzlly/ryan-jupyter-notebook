@@ -19,6 +19,12 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 
+es = Elasticsearch(
+    ['192.168.10.252'], 
+    http_auth=('elastic', 'Ryanes12#$'),
+    scheme='http', port=9200)
+
+#%%
 def es_bulk(df, genDocFunc):
     """
         bulk insert dataframe to es
@@ -35,6 +41,54 @@ def es_bulk(df, genDocFunc):
     if docs:
         helpers.bulk(es, docs)
         docs = []
+
+def getLastRecordDateInEs_macro_china_gksccz(es):
+    """
+        获取央行宏观操作的最新数据日期, yyyy-mm-dd
+    """
+    res = es.search(index='pyfy_macro_china_gksccz', 
+    body= {
+        "size": 1,
+        "sort": [
+            {
+                "operation_from_date": {
+                    "order": "desc"
+                }
+            }
+        ]
+    })
+    
+    if not res['hits']['hits']:
+        return '1970-01-01'
+
+    for hit in res['hits']['hits']:
+        # print(json.dumps(hit['_source'], indent=2))
+        a, _=hit['_source']['operation_from_date'].split('T', 2)
+    return a
+
+def getLastRecordDateInEs_pyfy_rate_interbank(es):
+    """
+        获取Shibor最新数据日期, yyyy-mm-dd
+    """
+    res = es.search(index='pyfy_rate_interbank', 
+    body= {
+        "size": 1,
+        "sort": [
+            {
+                "date": {
+                    "order": "desc"
+                }
+            }
+        ]
+    })
+
+    if not res['hits']['hits']:
+        return '1970-01-01'
+    
+    for hit in res['hits']['hits']:
+        # print(json.dumps(hit['_source'], indent=2))
+        a, _=hit['_source']['date'].split('T', 2)
+    return a
 
 def gen_macro_china_gksccz_doc(df, idx):
     """央行逆回购信息"""
@@ -66,14 +120,80 @@ es = Elasticsearch(
     http_auth=('elastic', 'Ryanes12#$'),
     scheme='http', port=9200)
 
-# es_bulk(ak.macro_china_gksccz(), gen_macro_china_gksccz_doc)
+# 获取央行宏观操作更新数据
+last_date = getLastRecordDateInEs_macro_china_gksccz(es);
+macro_china_gksccz_df = ak.macro_china_gksccz()
+df = macro_china_gksccz_df[::-1][macro_china_gksccz_df['operation_from_date'] > last_date]
+es_bulk(df, gen_macro_china_gksccz_doc)
 
-es_bulk(ak.rate_interbank(market="上海银行同业拆借市场", 
-    symbol="Shibor人民币", indicator="隔夜", need_page="100"),
-    gen_rate_interbank_doc)
+# 获取Shibor隔夜利率数据
+last_date = getLastRecordDateInEs_pyfy_rate_interbank(es);
+rate_interbank = ak.rate_interbank(market="上海银行同业拆借市场", 
+    symbol="Shibor人民币", indicator="隔夜", need_page="20");
+df = rate_interbank[rate_interbank['日期'] > last_date]
+es_bulk(df, gen_rate_interbank_doc)
+
+
 
 #%%
 
+macro_china_gksccz_df = ak.macro_china_gksccz()
+df = macro_china_gksccz_df[::-1]
+
+#%%
+
+    
+def getLastRecordDateInEs_macro_china_gksccz(es):
+    res = es.search(index='pyfy_macro_china_gksccz', 
+    body= {
+        "size": 1,
+        "sort": [
+            {
+                "operation_from_date": {
+                    "order": "desc"
+                }
+            }
+        ]
+    })
+
+    if not res['hits']['hits']:
+        return '1970-01-01'
+        
+    for hit in res['hits']['hits']:
+        # print(json.dumps(hit['_source'], indent=2))
+        a, _=hit['_source']['operation_from_date'].split('T', 2)
+    return a
+
+last_date = getLastRecordDateInEs_macro_china_gksccz(es);
+macro_china_gksccz_df = ak.macro_china_gksccz()
+df = macro_china_gksccz_df[::-1][macro_china_gksccz_df['operation_from_date'] > last_date]
+
+print(df)
+#%%
+
+def getLastRecordDateInEs_pyfy_rate_interbank(es):
+    res = es.search(index='pyfy_rate_interbank', 
+    body= {
+        "size": 1,
+        "sort": [
+            {
+                "date": {
+                    "order": "desc"
+                }
+            }
+        ]
+    })
+
+    for hit in res['hits']['hits']:
+        # print(json.dumps(hit['_source'], indent=2))
+        a, _=hit['_source']['date'].split('T', 2)
+    return a
+
+last_date = getLastRecordDateInEs_pyfy_rate_interbank(es);
+rate_interbank = ak.rate_interbank(market="上海银行同业拆借市场", 
+    symbol="Shibor人民币", indicator="隔夜", need_page="5");
+
+df = rate_interbank[rate_interbank['日期'] > last_date]
 #%%
 
 

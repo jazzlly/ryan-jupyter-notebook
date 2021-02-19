@@ -8,18 +8,46 @@ import numpy as np
 
 nparray = np.array([1, 2, 3])
 
+#%%
+nparray = np.array([[1,2,3], [4,5,6]])
+
 #%% 
 type(nparray) #numpy.ndarray
 
-#%% 
+#%% 每个数据的类型相同
 nparray.dtype
+
+#%% n维数组
+nparray.ndim
+
+#%% 
+nparray.shape
 
 #%% 
 np.arange(5)
 
 #%%
+np.zeros(10)
+
+#%%
+np.zeros([2,3])
+
+#%% 三维数组
+np.zeros((2,3,4))
+
+#%%
+np.ones((2,3,4))
+
+#%%
+np.empty((2,3,4))
+
+#%%
 arange = np.arange(15)
 print(f'arrange: {arange}')
+
+#%%
+arange = np.arange(15).reshape(3,5)
+arange
 
 #%%
 sum = np.sum(arange)
