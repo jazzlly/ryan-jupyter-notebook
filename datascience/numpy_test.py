@@ -42,8 +42,23 @@ np.ones((2,3,4))
 np.empty((2,3,4))
 
 #%%
+np.eye(4)
+
+#%%
 arange = np.arange(15)
 print(f'arrange: {arange}')
+
+
+#%% 数组运算
+array = np.arange(15).reshape(3, 5)
+
+print(array)
+print(f'\narray - array: \n {array - array}')
+print(f'\narray + array: \n {array + array}')
+print(f'\narray * array: \n {array*array}')
+print(f'\narray > 5: {array > 5}')
+print(f'\narray > 2* array: {array > 2* array}')
+
 
 #%%
 arange = np.arange(15).reshape(3,5)
@@ -60,6 +75,8 @@ print(f'avg: {avg}')
 #%%
 median = np.median(arange)
 print("median: \n{}".format(median))
+
+#%%
 
 variance = np.var(arange)
 print("variance: \n{}".format(variance))
@@ -153,7 +170,6 @@ print(np.empty((3, 3)))  # 没有初始化
 # %%
 import numpy as np
 
-
 print(np.arange(10, 30, 5))
 
 print(np.arange(0, 5, 0.5))
@@ -174,12 +190,12 @@ print(np.arange(10000).reshape(100, 100))
 
 # %% concatenate
 
-
 a = np.array([1, 2, 3, 4])
 b = np.array([5, 6, 7, 8])
 
 print(np.concatenate((a, b)))
 
+#%%
 x = np.array([[1, 2], [3, 4]])
 y = np.array([[5, 6]])
 print(np.concatenate((x, y), axis=0))
