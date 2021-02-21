@@ -27,7 +27,7 @@ nparray.shape
 np.arange(5)
 
 #%%
-np.zeros(10)
+np.zeros(5)
 
 #%%
 np.zeros([2,3])
@@ -60,9 +60,95 @@ print(f'\narray > 5: {array > 5}')
 print(f'\narray > 2* array: {array > 2* array}')
 
 
+#%% 通过下标方式访问元素
+array[2][4]
+
 #%%
-arange = np.arange(15).reshape(3,5)
-arange
+array[2,4]
+
+#%% 切片： 总是对数据进行引用
+#  array[r1:r2, c1:c2]  [r1, r2), [c1, c2)
+# 如果r1没有，则缺省是0， 如果r2没有，则缺省为-1
+
+# 神奇索引： 总是复制
+#　array[[r1, r2, r3], [c1, c2, c3]]
+
+# array([0, 1, 2, 3, 4])
+array[0] # 数组的索引， 获取的是低维数组
+
+#%%
+# array([ 0,  5, 10])
+array[:, 0] # 数组的索引， 获取的是低维数组
+
+#%% 
+# array([[0, 1, 2, 3, 4]])
+array[0:1] # 切片，获取的是二维数组
+
+#%%
+
+array[:, 0:1] # 切片，获取的是二维数组
+
+#%% 
+array[:, 2] # 索引，获取的是一维数组
+
+#%% 布尔索引, 通过boolen值过滤行，列
+names=np.array(['bob', 'bill', 'bob', 'richard', 
+    'tom', 'jerry', 'bob'])
+data=np.arange(28).reshape(7,4)
+
+print(f'names=="bob"{names=="bob"}')
+print(data[names == 'bob'])  #获取true对应的行
+
+print(data[names == 'bob', 0])  #获取true对应的行
+print(data[names == 'bob', :2])  #获取true对应的行
+
+#%% 过滤, 可以用于赋值操作
+data[data > 10]
+
+#%% 神奇索引
+data = np.empty((8,4))
+
+for i in range(len(data)):
+    data[i] = i
+
+data
+#%%
+data[[2, 0, 7]]
+
+#%% 
+data[[0,1], [0,1]] # 获取 (0,0), (1, 1)
+#%%
+data[[0,1], :2]
+
+#%%
+data[:2, [0,-1]]
+
+#%%
+data = np.arange(32).reshape(8,4)
+print(data)
+
+# 过滤行，然后对列进行交换
+data[[0,2,4,6]][:, [3, 2, 1, 0]]
+
+
+#%% 转置
+data = np.arange(15).reshape(3, 5)
+print(data)
+data.T
+
+#%% 矩阵内积
+np.dot(data, data.T)
+
+#%% 对于3维矩阵， 可以想象成2层，3行，4列的形状
+
+data = np.arange(24).reshape(2,3,4)
+print(data)
+data.transpose(0, 2, 1)
+#%%
+data.transpose(1, 0, 2)
+
+#%%
+data.transpose(2, 0, 1)
 
 #%%
 sum = np.sum(arange)
