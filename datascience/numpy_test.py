@@ -140,6 +140,8 @@ data.T
 np.dot(data, data.T)
 
 #%% 对于3维矩阵， 可以想象成2层，3行，4列的形状
+# 如果交换两个axes, 实际上就是对轴进行旋转。
+# 比如swapaxes(0,1), 就是对层轴和行轴进行顺时针旋转
 
 data = np.arange(24).reshape(2,3,4)
 print(data)
@@ -151,6 +153,95 @@ data.transpose(1, 0, 2)
 data.transpose(2, 0, 1)
 
 #%%
+data.swapaxes(1,2)
+
+#%%
+data.swapaxes(0,1) # 对层轴和行轴进行顺时针旋转
+
+#%%
+data.swapaxes(0,2) # 对层轴和列轴进行顺时针旋转
+
+#%% 通用函数, ufunc
+data = np.arange(5) * np.arange(5)
+print(data)
+
+print(np.sqrt(data)) # 对每个元素分别求值
+print(np.exp(data))
+
+#%% 通用函数的out参数，用于指定输入参数
+arr = np.arange(5, dtype='float64') * np.arange(5)
+np.sqrt(arr, arr)
+arr
+
+#%%
+np.add(np.arange(5), np.arange(5))
+
+#%%
+np.maximum(np.arange(5), np.arange(5) * 2)
+
+#%% 面向数组的编程
+
+# meshgrid函数， 输入行向量x, y返回xm, ym
+# xm为 x * len(y)的 矩阵
+# ym为 y.T * len(x) 的矩阵
+# 一般用于绘制图形
+x = np.arange(4)
+y = np.arange(5)
+
+xm, ym = np.meshgrid(x, y)
+print(f'x: {x}')
+print(f'xm: {xm}')
+print()
+print(f'y: {y}')
+print(f'ym:{ym}')
+
+#%%
+import matplotlib.pyplot as plt
+
+p = np.arange(-5, 5, 0.1)
+xs, ys = np.meshgrid(p, p)
+xs, ys
+
+z = np.sqrt(xs ** 2 + ys ** 2)
+
+plt.imshow(z, cmap=plt.cm.gray)
+plt.colorbar()
+
+#%%
+vx = np.arange(5)
+vy = np.arange(5)
+np.meshgrid(vx, vy)
+
+#%% 条件逻辑操作
+a1 = np.arange(1, 1.5, 0.1)
+a2 = np.arange(2, 2.5, 0.1)
+cond = np.array([True, False, True, False, True])
+
+np.where(cond, a1, a2)
+
+#%%
+arr = np.random.randn(3, 3)
+print(f'arr: {arr}')
+
+# 2和-2都广播出来了
+np.where(arr > 0, 2, -2)
+#%% 2广播了
+np.where(arr > 0, 2, arr)
+
+#%%
+x, y = np.ogrid[:3, :4]
+x, y
+#%%
+data = np.random.randn(7) * 5
+print(data)
+
+reminder, whole = np.modf(data) # 返回整数部分和小数部分
+print(f'reminder: {reminder}')
+print(f'whole: {whole}')
+
+
+#%%
+
 sum = np.sum(arange)
 print(f'sum of array: {sum}')
 
