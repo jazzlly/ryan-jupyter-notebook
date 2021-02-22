@@ -14,6 +14,7 @@ nparray = np.array([[1,2,3], [4,5,6]])
 #%% 
 type(nparray) #numpy.ndarray
 
+
 #%% 每个数据的类型相同
 nparray.dtype
 
@@ -23,10 +24,37 @@ nparray.ndim
 #%% 
 nparray.shape
 
+#%%
+a = np.arange(15).reshape(3, 5)
+print("size of a: {}".format(a.size))
+print("dim of a: {}".format(a.ndim))
+print("shape of a: {}".format(a.shape))
+print("type of a: {}".format(a.dtype.name))
+print("itemsize of a: {}".format(a.itemsize))
+print("type of a: {}".format(type(a)))
+
+vector = np.array([1, 2, 3])
+matrix = np.array([(1, 2, 3), (2, 3, 4)])
+matrix1 = np.array([[1, 2, 3], [2, 3, 4]])
+print("matrix : {}".format(matrix1))
+
+matrix2 = np.array([[1, 2, 3], [2, 3, 4]], dtype=complex)
+print("matrix : {}".format(matrix2))
+
 #%% 
 np.arange(5)
 
 #%%
+print("zeros : {}".format(np.zeros([3, 3])))
+print("zeros : {}".format(
+    np.zeros([3, 3], dtype=np.int64)))
+
+print("zeros : {}".format(
+    np.zeros([2, 3, 4],  # 高 长 宽
+             dtype=np.int64)))
+
+print(np.empty((3, 3)))  # 没有初始化
+
 np.zeros(5)
 
 #%%
@@ -104,6 +132,17 @@ print(data[names == 'bob', :2])  #获取true对应的行
 
 #%% 过滤, 可以用于赋值操作
 data[data > 10]
+
+# %% filter
+a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+print(a < 5)
+print(a[a < 5])
+
+five_up = (a >= 5)
+print(a[five_up])
+print(five_up)
+
+print(a[(a % 2 == 0) & (a < 10)])
 
 #%% 神奇索引
 data = np.empty((8,4))
@@ -305,45 +344,6 @@ print("alist: \n{}".format(alist))
 alist = np.roll(alist,-2)
 print("alist: \n{}".format(alist))
 
-
-#%%
-import numpy as np
-
-foo = np.arange(15)
-
-print(type(foo))
-
-a = np.arange(15).reshape(3, 5)
-print("size of a: {}".format(a.size))
-print("dim of a: {}".format(a.ndim))
-print("shape of a: {}".format(a.shape))
-print("type of a: {}".format(a.dtype.name))
-print("itemsize of a: {}".format(a.itemsize))
-print("type of a: {}".format(type(a)))
-
-vector = np.array([1, 2, 3])
-matrix = np.array([(1, 2, 3), (2, 3, 4)])
-matrix1 = np.array([[1, 2, 3], [2, 3, 4]])
-print("matrix : {}".format(matrix1))
-
-matrix2 = np.array([[1, 2, 3], [2, 3, 4]], dtype=complex)
-print("matrix : {}".format(matrix2))
-
-# %%
-
-import numpy as np
-
-print("zeros : {}".format(np.zeros([3, 3])))
-print("zeros : {}".format(
-    np.zeros([3, 3], dtype=np.int64)))
-
-print("zeros : {}".format(
-    np.zeros([2, 3, 4],  # 高 长 宽
-             dtype=np.int64)))
-
-print("foo")
-print(np.empty((3, 3)))  # 没有初始化
-
 # %%
 import numpy as np
 
@@ -354,7 +354,7 @@ print(np.arange(0, 5, 0.5))
 # 0 - 10 分成21个点
 print(np.linspace(0, 10, 21))
 
-x = np.linspace(0, 2 * pi, 100)
+x = np.linspace(0, 2 * np.pi, 100)
 f = np.sin(x)
 # print(f)
 
@@ -412,32 +412,6 @@ print(col_vector)  # shape: (6, 1)
 col_vector2 = np.expand_dims(a, 1)  # shape: (1, 6)
 print(col_vector2)
 
-# %% Indexing and slicing
-
-data = np.array([1, 2, 3])
-
-data[1]
-# 2
-
-data[0:2]
-# array([1, 2])
-
-data[1:]
-# array([2, 3])
-
-data[-2:]
-# array([2, 3])
-
-# %% filter
-a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
-print(a < 5)
-print(a[a < 5])
-
-five_up = (a >= 5)
-print(a[five_up])
-print(five_up)
-
-print(a[(a % 2 == 0) & (a < 10)])
 
 # %% nonzero
 
