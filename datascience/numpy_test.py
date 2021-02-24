@@ -279,24 +279,83 @@ print(f'reminder: {reminder}')
 print(f'whole: {whole}')
 
 
-#%%
+#%% 聚合函数
+import numpy as np
+arange = np.arange(12).reshape(3, 4)
+
+print(arange)
 
 sum = np.sum(arange)
 print(f'sum of array: {sum}')
+print(f'avg: {np.average(arange)}')
+print(f'median: {np.median(arange)}')
+print(f'mean: {np.mean(arange)}')
 
-#%%
-avg = np.average(arange)
-print(f'avg: {avg}')
+#%% 对axis求均值
+print(arange)
+print(f'sum of axis 0: {np.sum(arange, axis=0)}')
+print(f'sum of axis 1: {np.sum(arange, axis=1)}')
 
-#%%
-median = np.median(arange)
-print("median: \n{}".format(median))
+print(f'avg of axis 0: {np.average(arange, axis=0)}')
+print(f'mean of axis 0: {np.mean(arange, axis=0)}')
 
 #%%
 
 variance = np.var(arange)
 print("variance: \n{}".format(variance))
 
+#%%
+arr = np.arange(6)
+print(arr)
+
+print((arr > 3).sum()) # true的个数
+print(f'any true:{(arr > 3).any()}')
+print(f'all true:{(arr > 3).all()}')
+
+# 非0元素都按照true来处理
+
+#%% 排序
+arr = np.random.randn(3,4)
+print(arr)
+
+print(np.sort(arr))
+print(np.sort(arr, axis=0))
+
+#%% 唯一值
+arr = np.array(['bob', 'tom', 'bob', 'tom', 'jerry'])
+print(arr)
+print(np.unique(arr))
+print(sorted(set(arr))) # 等效np.unique
+
+#%% 线性代数
+x = np.arange(6).reshape(2,3)
+print(x)
+print(x.T)
+
+np.dot(x, x.T)
+
+#%% 
+import numpy as np
+
+arr = np.arange(4).reshape(2, 2)
+print(arr)
+print(np.ones(2))
+print(np.dot(arr, np.ones(2)))
+
+print()
+print(arr)
+print(np.eye(2))
+print(np.dot(arr, np.eye(2)))
+
+
+#%% 伪随机数
+
+# 正态分布样本
+samples = np.random.normal(size = 100)
+samples
+
+
+#%%
 
 brange = np.random.normal(loc=0.0, scale=1.0, size=1000)
 brange = np.around(brange, 2)
@@ -308,6 +367,9 @@ median = np.median(brange)
 print("median: \n{}".format(median))
 variance = np.var(brange)
 print("variance: \n{}".format(variance))
+
+#%%
+np.random.normal(loc=0.0, scale=1.0, size=20)
 
 #%% 绘制正态分布图表
 import numpy as np
