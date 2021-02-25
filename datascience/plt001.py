@@ -1,83 +1,95 @@
-#%%
+#%% reference: https://matplotlib.org/stable/contents.html
 
 import matplotlib.pyplot as plt
 import numpy as np
 import random
 
-#%% 简单数学曲线
+#%% 简单画图方法
+data = np.arange(10)
+plt.plot(data)
 
-x = np.linspace(0, 2, 100)
-plt.plot(x, x, label="linear")
-plt.plot(x, x**2, label="quadratic")
-plt.plot(x, x**3, label="cubic")
+#%% 创建图片figure, 然后添加子图axes
 
-plt.xlabel('x label')
-plt.ylabel('y label')
+fig = plt.figure() # 生成空白图片
 
-plt.title('simple plot')
-plt.legend()
-plt.show()
+# 创建四个子图
+ax1 = fig.add_subplot(2,2,1) # row, column, index_1based
+ax2 = fig.add_subplot(2,2,2)
+ax3 = fig.add_subplot(2,2,3)
+ax4 = fig.add_subplot(2,2,4)
 
-#%% linspace plot
-import matplotlib.pyplot as plt
-N = 8
-y = np.zeros(N)
-x1 = np.linspace(0, 10, N, endpoint=True)
-x2 = np.linspace(0, 10, N, endpoint=False)
-plt.plot(x1, y, 'o')
-plt.plot(x2, y + 0.5, 'o')
-plt.ylim([-0.5, 1])
-plt.show()
+# 默认绘制在最后一张图上
+plt.plot(np.random.randn(100).cumsum(), 'k--') # k--绘制黑色线段
 
-#%% 简单折线图
+_ = ax1.hist(np.random.randn(1000), bins=20, color='k', alpha=0.3)
 
-position = 0
-walks = [position]
-for i in range(100):
-    position += random.randint(-1, 1);
-    walks.append(position)
+ax2.plot(np.random.randn(50).cumsum(), '--')
 
-plt.plot(walks)
+ax3.scatter(np.arange(50), np.arange(50) + 3 * np.random.randn(50))
 
 #%% 
-steps = np.array([random.choice([-1, 0, 2]) for _ in range(100)])
-walks = steps.cumsum()
 
-plt.plot(walks)
+fig = plt.figure()
+ax1 = fig.add_subplot(3, 1, (1, 2))
+# ax2 = fig.add_subplot(3, 1, 2)
+ax3 = fig.add_subplot(3, 1, 3)
 
-#%% 绘制正态分布图表
-import numpy as np
-import matplotlib.pyplot as plt
+#%% 一次创建多个图表
 
-'''
-numpy.random.normal(loc=0.0, scale=1.0, size=None)的参数中，
-loc、scale分别对应公式中的期望值μ，标准差σ，
-默认呈标准正态分布(μ=0,σ=1)，size指输出的值的数量font
-'''
+fig, axes = plt.subplots(2, 2) 
+axes
 
-plt.hist(np.random.normal(loc=0.0, scale=1.0, size=1000), bins=30)
-plt.show()
+#%% 调整图片间距为0
+fig, axes = plt.subplots(2, 2, sharex=True, sharey=True)
+# fig, axes = plt.subplots(2, 2)
+for i in range(2):
+    for j in range(2):
+        axes[i][j].hist(np.random.randn(500), bins=50, color='k', alpha=0.5)
+plt.subplots_adjust(wspace=0, hspace=0)
+
+#%% 图片风格
+plt.plot(np.random.randn(30), 'g--')
+plt.plot(np.random.randn(30) + 10, linestyle='--', color='g')
+
+plt.plot(np.random.randn(30) + 25, 'ro--')
+plt.plot(np.random.randn(30) + 35, linestyle='--', color='r', marker='o')
+
 
 #%%
-
+data = np.random.randn(50).cumsum()
+plt.plot(data, 'g--', label='Default')
+plt.plot(data, 'g-', drawstyle='steps-post', label='steps-post')
+plt.legend(loc='best')
 
 #%%
-p = np.arange(-5, 5, 0.1)
-xs, ys = np.meshgrid(p, p)
-xs, ys
+fig = plt.figure()
+ax1 = fig.add_subplot(1, 1, 1)
+ax1.plot(np.random.randn(50).cumsum(), 'ko--')
+ax1.set_xlabel('x label')
+ax1.set_ylabel('y label')
+ticks = ax1.set_xticks([0, 25, 50])  # 设置x轴刻度
+labels = ax1.set_xticklabels(['one', 'two', 'three'], 
+                             rotation=30, fontsize='small')
+ax1.set_title('My plot')
+# %% 批量设置属性
+fig = plt.figure()
+ax1 = fig.add_subplot(1, 1, 1)
 
-z = np.sqrt(xs ** 2 + ys ** 2)
+props = {
+    "title": "My plot 1",
+    "xlabel": "x label 1",
+    "ylabel": "y label 1"
+}
 
-plt.imshow(z, cmap=plt.cm.gray)
-plt.colorbar()
+ax1.set(**props)
+ax1.plot(np.random.randn(50).cumsum(), 'ko--')
 
-#%% meshgrid生成两个矩阵， xs 是 参数1向量的行扩展，共有参数2行
-p = np.arange(0, 5, 0.1)
-xs, ys = np.meshgrid(p, p)
-print(xs, '\n\n', ys)
+#%%
+fig = plt.figure()
+ax1 = fig.add_subplot(1, 1, 1)
 
-z = np.sqrt(xs + ys)
+ax1.plot(np.random.randn(50).cumsum(), 'ko--', label='one')
+ax1.plot(np.random.randn(50).cumsum() + 10, 'ro--', label='two')
+ax1.plot(np.random.randn(50).cumsum() + 20, 'bo--', label='three')
 
-plt.imshow(z, cmap=plt.cm.gray)
-plt.colorbar()
-
+ax1.legend(loc='upper right')

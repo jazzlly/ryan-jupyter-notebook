@@ -43,40 +43,12 @@ def es_bulk(df, genDocFunc):
         helpers.bulk(es, docs)
         docs = []
 
-def getLastRecordDateInEs_macro_china_gksccz(es):
+def getLastRecordDateInEs(es, es_index):
     """
-        获取央行宏观操作的最新数据日期, yyyy-mm-dd
-    """
-    try:
-        res = es.search(index='pyfy_macro_china_gksccz', 
-        body= {
-            "size": 1,
-            "sort": [
-                {
-                    "operation_from_date": {
-                        "order": "desc"
-                    }
-                }
-            ]
-        })
-    except NotFoundError:
-        print('index not exists!')
-        return '1970-01-01'
-    
-    if not res['hits']['hits']:
-        return '1970-01-01'
-
-    for hit in res['hits']['hits']:
-        # print(json.dumps(hit['_source'], indent=2))
-        a, _=hit['_source']['operation_from_date'].split('T', 2)
-    return a
-
-def getLastRecordDateInEs_pyfy_rate_interbank(es):
-    """
-        获取Shibor最新数据日期, yyyy-mm-dd
+        获取es最新数据日期, yyyy-mm-dd
     """
     try:
-        res = es.search(index='pyfy_rate_interbank', 
+        res = es.search(index=es_index, 
         body= {
             "size": 1,
             "sort": [
@@ -90,14 +62,35 @@ def getLastRecordDateInEs_pyfy_rate_interbank(es):
     except NotFoundError:
         print('index not exists!')
         return '1970-01-01'
-
+    
     if not res['hits']['hits']:
         return '1970-01-01'
-    
+
     for hit in res['hits']['hits']:
         # print(json.dumps(hit['_source'], indent=2))
         a, _=hit['_source']['date'].split('T', 2)
     return a
+
+
+def getLastRecordDateInEs_macro_china_gksccz(es):
+    """
+        获取央行宏观操作的最新数据日期, yyyy-mm-dd
+    """
+    return getLastRecordDateInEs(es, 'pyfy_macro_china_gksccz')
+    
+
+def getLastRecordDateInEs_pyfy_rate_interbank(es):
+    """
+        获取Shibor最新数据日期, yyyy-mm-dd
+    """
+    return getLastRecordDateInEs(es, 'pyfy_rate_interbank')
+    
+
+def getLastRecordDateInEs_bond_investing_global(es):
+    """
+        获取中国10年期国债最新数据日期, yyyy-mm-dd
+    """
+    return getLastRecordDateInEs(es, 'pyfy_bond_investing_global')
 
 def gen_macro_china_gksccz_doc(df, idx):
     """央行逆回购信息"""
@@ -105,6 +98,8 @@ def gen_macro_china_gksccz_doc(df, idx):
         '_index': 'pyfy_macro_china_gksccz',
         '_source': {
             'operation_from_date': datetime.strptime(
+                df['operation_from_date'][idx], "%Y-%m-%d"),
+            'date': datetime.strptime(
                 df['operation_from_date'][idx], "%Y-%m-%d"),
             'rate': float(df['rate'][idx]),
             'trading_method': df['trading_method'][idx],
@@ -123,6 +118,18 @@ def gen_rate_interbank_doc(df, idx):
             'trend': df['涨跌(BP)'][idx]
         }
     }
+    
+def gen_bond_investing_global_doc(df, idx):
+    """ 中国10年期国债 """
+    return {
+        '_index': 'pyfy_bond_investing_global',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'close': float(df['收盘'][idx]),
+            'open': float(df['开盘'][idx]),
+            'trend': df['涨跌幅'][idx]
+        }
+    }
 
 # 获取央行宏观操作更新数据
 last_date = getLastRecordDateInEs_macro_china_gksccz(es);
@@ -138,3 +145,18 @@ rate_interbank = ak.rate_interbank(market="上海银行同业拆借市场",
 df = rate_interbank[rate_interbank['日期'] > last_date]
 es_bulk(df, gen_rate_interbank_doc)
 
+# 中国十年期国债
+last_date = getLastRecordDateInEs_bond_investing_global(es);
+localtime = time.strftime('%Y-%m-%d', time.localtime())
+
+if (last_date != localtime):
+    bond_investing_global_df = ak.bond_investing_global(
+        country="中国", index_name="中国10年期国债", period="每日", 
+        start_date=last_date, end_date=time.strftime(
+            '%Y-%m-%d', time.localtime()))
+    es_bulk(bond_investing_global_df, gen_bond_investing_global_doc)
+    
+#%%
+'123' == '123'
+'234' != '234'
+localtime = time.strftime('%Y-%m-%d', time.localtime())

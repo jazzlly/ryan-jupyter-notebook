@@ -103,5 +103,12 @@ macro_china_enterprise_boom_index_df = ak.macro_china_enterprise_boom_index()
 print(macro_china_enterprise_boom_index_df)
 
 #%%
-import numpy as np
-import matplotlib.pyplot as plt
+import time
+import akshare as ak
+
+bond_investing_global_df = ak.bond_investing_global(
+    country="中国", index_name="中国10年期国债", period="每周", 
+    start_date="2000-01-01", end_date=time.strftime(
+        '%Y-%m-%d', time.localtime()))
+print(bond_investing_global_df)
+
