@@ -60,8 +60,13 @@ stock_pct_change = pd.DataFrame(
     }
 )
 
-#%%
 pd = stock_pct_change
+
+#%%
+print(pd.value_counts())
+
+
+#%%
 pd.google.corr(pd.facebook) # google和facebook的相关性
 
 #%%
