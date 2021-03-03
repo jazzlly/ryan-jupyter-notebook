@@ -46,12 +46,21 @@ len(data.columns)
 #%% 数组下标获取成员 data[col][row]
 data['x']['c']
 
+#%% 属性下标, data.column.row
+data.x.c
+
 #%% 获取列 data[col]
 data['x'] # seria for col['x']
+
+#%% 
+data.x
 
 #%% 通过获取列，并通过value过滤
 print(data)
 data['x'][data['x'] >= 10]
+
+#%% 
+data.x[data.x>=10]
 
 #%% 获取多列
 data[['x', 'z']]
