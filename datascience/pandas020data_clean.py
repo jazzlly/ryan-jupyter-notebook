@@ -5,7 +5,7 @@ import numpy as np
 
 data = pd.Series(['foo', 'bar', None, np.nan, 'wahahah'])
 print(data)
-
+    
 data.isnull()
 # NA: not available
 
@@ -66,11 +66,13 @@ df = pd.DataFrame([[np.nan, 2, np.nan, 0],
 df
 
 #%% 从上向下fill
+print(df)
 df.fillna(method='ffill')
 
 #%%
+print(df)
 df.fillna(axis=1, method='ffill')
 
 #%% 按列fill
-values = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
-df.fillna(value=values)
+print(df)
+df.fillna(value={'A': 0, 'B': 1, 'C': 2, 'D': 3})
