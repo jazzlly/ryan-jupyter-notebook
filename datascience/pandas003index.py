@@ -30,9 +30,9 @@ df.index
 df = pd.DataFrame(np.arange(20).reshape(4,5), 
     columns=list('abcde'), index=[1]*4)
 df
-# 行index是可以重复的
 #%%
-df[1:]
+df.index
+# 行index是可以重复的
 
 #%% 
 idx = pd.Index([])

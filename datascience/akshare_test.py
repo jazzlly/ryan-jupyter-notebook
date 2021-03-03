@@ -2,24 +2,22 @@
 # https://zhuanlan.zhihu.com/p/100185719
 
 #%%
-# 找一下国泰多策略的历史图
-
-#%%
 import akshare as ak
 
 #%%
 import akshare as ak
 js_news_df = ak.js_news(indicator='最新资讯')
-# js_news_df = ak.js_news(indicator='最新数据')
-# print(js_news_df)
-# js_news_df.to_excel('news.xlsx')
 
-# print(type(js_news_df))
 # js_news_df['content']
 for i in range(len(js_news_df)):
     print(f"{js_news_df.iloc[i, 0]}")
     print(f"{js_news_df.iloc[i, 1]}")
     print()
+
+#%% 社融数据
+import akshare as ak
+df = ak.macro_china_shrzgm()
+print(df)
 
 #%% 央行公开操作
 # 逆回购：央行给商业银行贷款，商业银行抵押债券给央行。到期后商业银行还钱，收回债券

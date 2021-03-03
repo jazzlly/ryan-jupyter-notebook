@@ -25,7 +25,8 @@ _ = ax1.hist(np.random.randn(1000), bins=20, color='k', alpha=0.3)
 
 ax2.plot(np.random.randn(50).cumsum(), '--')
 
-ax3.scatter(np.arange(50), np.arange(50) + 3 * np.random.randn(50))
+ax3.scatter(np.arange(50), 
+    np.arange(50) + 3 * np.random.randn(50))
 
 #%% 
 
@@ -93,3 +94,12 @@ ax1.plot(np.random.randn(50).cumsum() + 10, 'ro--', label='two')
 ax1.plot(np.random.randn(50).cumsum() + 20, 'bo--', label='three')
 
 ax1.legend(loc='upper right')
+
+#%%
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+
+rect = plt.Rectangle((0.2, 0.2), 0.1, 0.2, color='r', alpha=0.5)
+ax.add_patch(rect)
+
+

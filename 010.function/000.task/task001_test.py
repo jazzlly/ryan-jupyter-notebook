@@ -212,3 +212,61 @@ bond_investing_global_df = ak.bond_investing_global(
 for idx in bond_investing_global_df.index:
     print(gen_bond_investing_global_doc(bond_investing_global_df, idx))
 
+
+#%% 上证指数历史数据
+import akshare as ak
+
+def gen_stock_zh_index_daily_doc(df, idx):
+    """ 上证指数 """
+    return {
+        '_index': 'pyfy_stock_zh_index_daily',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'close': float(df['close'][idx]),
+            'open': float(df['open'][idx]),
+            'volume': df['volume'][idx]
+        }
+    }
+
+df = ak.stock_zh_index_daily(symbol="sh000001")
+# print(stock_zh_index_daily_df)
+# df = stock_zh_index_daily_df[stock_zh_index_daily_df.index > ]
+
+for idx in df.index:
+    doc = gen_stock_zh_index_daily_doc(
+        df, idx)
+    print(doc)
+    break
+
+#%%
+import akshare as ak
+
+def gen_macro_china_shrzgm_doc(df, idx):
+    """ 社融数据 """
+    date=df['月份'][idx]
+    
+    return {
+        '_index': 'pyfy_macro_china_shrzgm',
+        '_source': {
+            'date': date[:4] + '-' + date[4:] + '-01',
+            'srzl': float(df['社会融资规模增量'][idx])
+        }
+    }
+
+df = ak.macro_china_shrzgm()
+print(df)
+for idx in df.index:
+    print(gen_macro_china_shrzgm_doc(df, idx))
+    break
+
+
+
+#%%
+date='202012'
+print(date[:4])
+print(date[4:])
+print(date[:4] + '-' + date[4:] + '-01')
+
+
+#%%
+'2020-11-23'.replace('-', '')[:6]

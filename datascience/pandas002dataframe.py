@@ -10,7 +10,7 @@ data.index.name = 'row'
 data.columns.name = 'col'
 data
 
-#%% data.iloc[row, col]
+#%% ilock可以通过数字下标访问数据 data.iloc[row, col]
 
 for i in range(len(data)):
     print(f'row {i}: ', end='')
@@ -18,7 +18,7 @@ for i in range(len(data)):
         print(f'{data.iloc[i, j]}, ', end='')
     print()
 
-#%% data.loc[row, col]
+#%% loc通过index和column访问数据 data.loc[row, col]
 
 for r in data.index:
     for c in data.columns:
@@ -31,17 +31,17 @@ data.columns
 #%% 行标识
 data.index
 
-#%%
+#%% ndarray
 data.values
-
-#%%
-type(data.values) # ndarray
 
 #%% 行数
 len(data)
 
+#%%
+len(data.index)
+
 #%% 列数
-data.columns.size
+len(data.columns)
 
 #%% 数组下标获取成员 data[col][row]
 data['x']['c']
@@ -50,7 +50,8 @@ data['x']['c']
 data['x'] # seria for col['x']
 
 #%% 通过获取列，并通过value过滤
-data['x'][_>=10]
+print(data)
+data['x'][data['x'] >= 10]
 
 #%% 获取多列
 data[['x', 'z']]

@@ -42,6 +42,8 @@ obj * 2
 #%% 过滤
 obj[obj>2]
 
+#%%
+obj[obj.index > 2]
 #%% series是可变的
 obj[0] = 100
 obj
