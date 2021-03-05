@@ -194,6 +194,7 @@ df = ak.stock_zh_index_daily(symbol="sh000001")
 last_date = getLastRecordDateInEs(es, "pyfy_stock_zh_index_daily")
 es_bulk(df[df.index > last_date], gen_stock_zh_index_daily_doc)
 
+#%% 
 # 社融数据
 last_date = getLastRecordDateInEs(es, 
     "pyfy_macro_china_shrzgm").replace('-', '')[:6]

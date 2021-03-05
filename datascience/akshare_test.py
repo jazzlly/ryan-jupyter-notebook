@@ -54,6 +54,13 @@ bond_investing_global_df = ak.bond_investing_global(
     period="每周", start_date="2010-01-01", end_date="2021-02-05")
 print(bond_investing_global_df)
 
+#%%
+import akshare as ak
+bond_investing_global_df = ak.bond_investing_global(
+    country="美国", index_name="美国10年期国债", period="每周", 
+    start_date="2019-01-01", end_date="2021-03-04")
+print(bond_investing_global_df)
+
 #%% 市盈率
 import akshare as ak
 stock_a_pe_df = ak.stock_a_pe(market="000016.XSHG")
