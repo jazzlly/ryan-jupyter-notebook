@@ -112,8 +112,18 @@ import time
 import akshare as ak
 
 bond_investing_global_df = ak.bond_investing_global(
-    country="中国", index_name="中国10年期国债", period="每周", 
-    start_date="2000-01-01", end_date=time.strftime(
+    country="中国", index_name="中国10年期国债", period="每日", 
+    start_date="2005-01-01", end_date=time.strftime(
         '%Y-%m-%d', time.localtime()))
 print(bond_investing_global_df)
+#%%
+import time
+import akshare as ak
+
+bond_investing_global_us_10 = ak.bond_investing_global(
+    country="美国", index_name="美国10年期国债", period="每日", 
+    start_date="2005-01-01", end_date=time.strftime(
+        '%Y-%m-%d', time.localtime()))
+print(bond_investing_global_us_10)
+
 

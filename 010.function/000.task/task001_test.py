@@ -259,7 +259,51 @@ for idx in df.index:
     print(gen_macro_china_shrzgm_doc(df, idx))
     break
 
+#%%
 
+def gen_bond_investing_global_zh_10_doc(df, idx):
+    """ 中国十年期国债 """
+    return {
+        '_index': 'pyfy_bond_investing_global_zh_10',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'close': float(df['收盘'][idx]),
+            'trend_pct': df['涨跌幅'][idx]
+        }
+    }
+
+df = ak.bond_investing_global(
+    country="中国", index_name="中国10年期国债", period="每日", 
+    start_date="2005-01-01", end_date=time.strftime(
+        '%Y-%m-%d', time.localtime()))
+
+for idx in df.index:
+    doc = gen_bond_investing_global_zh_10_doc(df, idx)
+    print(doc)
+    break
+
+#%%
+
+def gen_bond_investing_global_us_10_doc(df, idx):
+    """ 中国十年期国债 """
+    return {
+        '_index': 'pyfy_bond_investing_global_us_10',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'close': float(df['收盘'][idx]),
+            'trend_pct': df['涨跌幅'][idx]
+        }
+    }
+
+df = ak.bond_investing_global(
+    country="美国", index_name="美国10年期国债", period="每日", 
+    start_date="2005-01-01", end_date=time.strftime(
+        '%Y-%m-%d', time.localtime()))
+
+for idx in df.index:
+    doc = gen_bond_investing_global_us_10_doc(df, idx)
+    print(doc)
+    break
 
 #%%
 date='202012'

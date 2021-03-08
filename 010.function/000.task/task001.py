@@ -163,6 +163,28 @@ def gen_macro_china_shrzgm_doc(df, idx):
         }
     }
 
+def gen_bond_investing_global_zh_10_doc(df, idx):
+    """ 中国十年期国债 """
+    return {
+        '_index': 'pyfy_bond_investing_global_zh_10',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'close': float(df['收盘'][idx]),
+            'trend_pct': df['涨跌幅'][idx]
+        }
+    }
+    
+def gen_bond_investing_global_us_10_doc(df, idx):
+    """ 中国十年期国债 """
+    return {
+        '_index': 'pyfy_bond_investing_global_us_10',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'close': float(df['收盘'][idx]),
+            'trend_pct': df['涨跌幅'][idx]
+        }
+    }
+
 
 # 获取央行宏观操作更新数据
 last_date = getLastRecordDateInEs_macro_china_gksccz(es);
@@ -193,6 +215,22 @@ if (last_date != localtime):
 df = ak.stock_zh_index_daily(symbol="sh000001")
 last_date = getLastRecordDateInEs(es, "pyfy_stock_zh_index_daily")
 es_bulk(df[df.index > last_date], gen_stock_zh_index_daily_doc)
+
+# 中国十年期国债
+last_date = getLastRecordDateInEs(es, "pyfy_bond_investing_global_zh_10")
+df = ak.bond_investing_global(
+    country="中国", index_name="中国10年期国债", period="每日", 
+    start_date=last_date, end_date=time.strftime(
+        '%Y-%m-%d', time.localtime()))
+es_bulk(df[df.index > last_date], gen_bond_investing_global_zh_10_doc)
+
+# 美国10年期国债
+last_date = getLastRecordDateInEs(es, "pyfy_bond_investing_global_us_10")
+df = ak.bond_investing_global(
+    country="美国", index_name="美国10年期国债", period="每日", 
+    start_date=last_date, end_date=time.strftime(
+        '%Y-%m-%d', time.localtime()))
+es_bulk(df[df.index > last_date], gen_bond_investing_global_us_10_doc)
 
 #%% 
 # 社融数据
