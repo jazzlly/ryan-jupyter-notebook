@@ -4,12 +4,11 @@ import numpy as np
 
 s = pd.Series(np.arange(5))
 s
-
 #%% loc用于标签索引， iloc用于整数索引
-# 中括号等效于loca
+# 中括号等效于loc
 
 #%%
-s[0]
+s[0:3]
 
 #%%
 s[:2]
@@ -27,11 +26,15 @@ s = pd.Series(np.arange(5), index=list('abcde'))
 
 s['a']
 
-#%%
+#%% 对于索引， 切片是全开区间[]
+print(s)
 s[:'d']
 
-#%%
-s.loc[:'d']
+#%% 对于lock, 切片是全开区间[]
+s.loc['b':'d']
+
+#%% 对于iloc, 切片是半开区间[)
+s.iloc[:3]
 
 #%%
 import pandas as pd
@@ -40,10 +43,8 @@ import numpy as np
 df = pd.DataFrame(np.arange(12).reshape(3,4))
 
 #%% dataframe和series之间的操作
-df - df.iloc[0] # df的每一行都减去series
-
-#%%
-df
+print(df)
+df- df.iloc[0] # df的每一行都减去series
 
 #%% 矩阵减去一个列向量
 df.sub(df[0], axis=0)

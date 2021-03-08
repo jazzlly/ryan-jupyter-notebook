@@ -3,7 +3,8 @@
 import pandas as pd
 import numpy as np
 
-df = pd.DataFrame(np.arange(12).reshape(3,4), columns=list('xyzl'))
+df = pd.DataFrame(np.arange(12).reshape(3,4), 
+    columns=list('xyzl'))
 print(df)
 
 # 从行轴方向求和
@@ -12,12 +13,13 @@ print()
 print(f'sum column: \n{df.sum(axis=1)}')
 
 #%%
-print(f'min index {df.idxmin()}') # 各个列最小索引
-print(f'max index {df.idxmax()}') # 各个列最大索引
+print(df)
+print(f'min index \n{df.idxmin()}') # 各个列最小索引
+print(f'max index \n{df.idxmax()}') # 各个列最大索引
 
 #%%
 print(df)
-df.cumsum() # 默认axis=0
+# 默认axis=0, 按照行cumsum
 print(f'cumsum row: \n{df.cumsum(axis=0)}')
 print()
 print(f'cumsum column: \n{df.cumsum(axis=1)}')
@@ -85,10 +87,12 @@ pd.corr()
 pd.cov()
 
 #%%
+import pandas as pd
+
 l = list('abcdefg')
 l.extend('ace')
 s = pd.Series(l)
-
+s
 #%%
 s.unique()
 
@@ -101,7 +105,6 @@ pd.value_counts(s, sort=False)
 #%%
 print(s)
 s.isin(['b', 'c'])
-
 
 #%% 按列方式reshape
 array = np.arange(12).reshape(3,4, order='F')

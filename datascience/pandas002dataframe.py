@@ -10,7 +10,7 @@ data.index.name = 'row'
 data.columns.name = 'col'
 data
 
-#%% ilock可以通过数字下标访问数据 data.iloc[row, col]
+#%% iloc可以通过数字下标访问数据 data.iloc[row, col]
 
 for i in range(len(data)):
     print(f'row {i}: ', end='')
@@ -23,6 +23,13 @@ for i in range(len(data)):
 for r in data.index:
     for c in data.columns:
         print(f'{data.loc[r, c]}, ', end='')
+    print()
+
+#%% 数组下标访问: data[column][row]
+
+for c in data.columns:
+    for r in data.index:
+        print(f'{data[c][r]}, ', end='')
     print()
 
 #%% 列标识
@@ -180,7 +187,3 @@ df3
 
 #%% 转置
 df3.T
-
-
-#%%
-

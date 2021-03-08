@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # 分层索引
-data = pd. Series( np. random. randn( 9), 
+data = pd.Series(np.random.randn( 9), 
     index=[['a', 'a', 'a', 'b', 'b', 'c', 'c', 'd', 'd'], 
            [1, 2, 3, 1, 3, 1, 2, 2, 3]])
 
@@ -39,7 +39,8 @@ data.unstack() # 转化为dataframe
 #%%
 data.unstack().stack() # dataframe转化为多层索引的series
 
-#%%
+#%% 类似一个excel, 行索引有两级， 列索引有两级
+
 frame = pd. DataFrame(np.arange(12). reshape((4, 3)), 
     index=[['a', 'a', 'b', 'b'], [1, 2, 1, 2]], 
     columns=[['Ohio', 'Ohio', 'Colorado'], 
@@ -73,10 +74,11 @@ frame.swaplevel('key1', 'key2').sort_index(level=0)
 
 #%% 按照不同的轴和多级索引排序
 print(frame)
-frame.sum(level='key1') # level指定多级索引, axis指定轴
+frame.sum(level='key1') # 行剩下索引就是key1
+ # level指定多级索引, axis指定轴
 #%%
 print(frame)
-frame.sum(axis=1, level='color')
+frame.sum(axis=1, level='color') # 列剩下索引就是color
 
 #%%
 print(frame)

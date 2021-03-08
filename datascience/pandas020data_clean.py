@@ -36,7 +36,6 @@ print(data)
 data.dropna(axis=1, how='all')
 
 #%%
-
 data = pd.DataFrame(np.random.randn(5, 5))
 print(data)
 
@@ -57,7 +56,6 @@ data.fillna({1: 1., 2: 2.}) # 按列补全
 _ = data.fillna(0, inplace=True) 
 
 #%%
-
 df = pd.DataFrame([[np.nan, 2, np.nan, 0],
                     [3, 4, np.nan, 1],
                     [np.nan, np.nan, np.nan, 5],
