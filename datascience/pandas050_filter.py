@@ -138,5 +138,13 @@ print(dummies)
 # movies.join(dummies.add_prefix('Genres_'))
 movies.join(dummies)
 
-
 #%%
+import numpy as np
+
+values = np.random.rand(10)
+bins = np.arange(0, 1.1, 0.2)
+
+print(values)
+print(bins)
+
+pd.get_dummies(pd.cut(values, bins))
