@@ -58,3 +58,29 @@ print(regex.sub(r'username: \1, domain: \2, suffix: \3',
         'rui.jiang@pekall.com'))
 print(regex.sub(r'username: \1, domain: \2, suffix: \3', text))
 
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# search() vs. match()
+# match从字符串开头检查
+print(re.match("c", "abcdef"))      # No match
+print(re.match("^.*c", "abcdef"))
+# <re.Match object; span=(0, 3), match='abc'>
+
+#%% search从任意位置开始匹配
+print(re.search("c", "abcdef"))   # Match
+# search可以通过定位符来匹配首字符
+
+print(re.search("^ab", "abcdef"))   # Match
+# <re.Match object; span=(0, 2), match='ab'>
+
+#%% 多行模式下, match也仅仅匹配字符串的开始
+
+print(re.match('X', 'A\nB\nX', re.MULTILINE))  # No match
+print(re.match('A', 'A\nB\nX', re.MULTILINE))
+# 仅仅匹配字符串的开始后 <re.Match object; span=(0, 1), match='A'>
+
+#%% 多行模式下，search可以匹配到每个行的开始
+print(re.search('^X', 'AX\nB\nX', re.MULTILINE)) 
+# 匹配到每行的开始 <re.Match object; span=(5, 6), match='X'>
+
+print(re.search('X', 'AX\nB\nX', re.MULTILINE))
+# 匹配任意位置 <re.Match object; span=(1, 2), match='X'>
