@@ -29,18 +29,26 @@ print(s.count('a'))
 #%% 字符串替换
 print(s.replace(',', 'xx'))
 
-#%% 
+#%% 对series的所有item应用正则表达式
+
+import pandas as pd
+import numpy as np
 import re
-s = 'foo  bar\t  barz\n haha'
-words = re.split('\s+', s)  # 自动编译成正则表达式对象
-print(words)
 
-#%% 编译生成的正则表达式对象性能更好
-regex = re.compile('\s+')
-regex.split(s)
+data={
+    'Dave':'dave@google.com',
+    'Steve':'steve@gmail.com',
+    'Rob':'rob@gmail.com',
+    'Wes':np.nan
+    }
 
-#%%
-regex.findall(s)
+data=pd.Series(data)
+print(data)
 
-#%%
-regex.search(s)
+#%% 正则匹配的广播
+pattern=r'([A-Z0-9._%+-]+)@([A-Z0-9.-]+)\.([A-Z]{2,4})'
+print(data.str.findall(pattern, flags=re.IGNORECASE))
+print(data.str.match(pattern,flags=re.IGNORECASE))
+
+#%% 字符切片的广播
+data.str[:5]

@@ -1,43 +1,60 @@
-#%%
+#%% 三个主题，模式匹配，替换，拆分
 
+#%%
 import re
+s = 'foo  bar\t  barz\n haha'
+words = re.split(r'\s+', s)  # 自动编译成正则表达式对象
+print(words)
 
-p = re.compile('a')
-print(p.match('a'))
-print(p.match('b'))
+#%% 编译生成的正则表达式对象性能更好
+regex = re.compile('\s+')
+regex.split(s)
 
+#%% 找到所有的匹配项
+regex = re.compile(r'ba[^\s]+')
+regex.findall(s)
 
 #%%
+text="""
+Dave dave@google.com
+Steve steve@gmail.com
+Rob rob@gmail.com
+Ryan ryan@yahoo.com
+"""
+pattern=r'[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'
+#re.IGNORECASE使正则表达式不区分大小写
+regex=re.compile(pattern,flags=re.IGNORECASE)
 
-p = re.compile('ca+t')
+print(regex.findall(text)) # 生成邮件列表
 
-print(p.match('cat'))
-print(p.match('caat'))
-m = p.match('caaat').string
+#%%
+m = regex.search(text) # 文本中第一个匹配的字符串, 如果没有找到，则返回None
+print(text[m.start(): m.end()])
 
-print('haha')
+#%%
+print(regex.sub("email", text))
 
-#%% 使用r''表示不转义字符, group()方法
+#%%
+pattern=r'([A-Z0-9._%+-]+)@([A-Z0-9.-]+)\.([A-Z]{2,4})'
+regex=re.compile(pattern,flags=re.IGNORECASE)
 
-p = re.compile(r'(\d+)-(\d+)-(\d+)')
-print(p.match('2019-03-30').group())
-print(p.match('2019-03-30').group(0))
-print(p.match('2019-03-30').group(1))
-print(p.match('2019-03-30').groups())
+m = regex.match('rui.jiang@pekall.com')
+print(m.groups())  # 获取所有匹配组
+print(f'{m.group(0)}, {m.group(1)}, {m.group(2)}, {m.group(3)}')
+print(f'{m[0]}, {m[1]}, {m[2]}, {m[3]}')
 
-year, month, day = p.match('2019-03-30').groups()
+# 获取匹配组的位置
+print(m.start(0), m.end(0))
+print(m.start(1), m.end(1))
+print(m.start(2), m.end(2))
 
-#%% search vs match
+# 如果有分组的时候， 返回的是匹配到的分组的元组
+# [('dave', 'google', 'com'), ('steve', 'gmail', 'com'), ('rob', 'gmail', 'com'), ('ryan', 'yahoo', 'com')]
+print(regex.findall(text))
 
-p = re.compile(r'(\d+)-(\d+)-(\d+)')
-print(p.search('aaa2019-03-30').group())
-print(p.search('2019-03-30bbb').group(0))
-print(p.search('2019-03-30').group(1))
-print(p.search('aaa2019-03-30').groups())
+#%% 替换时可以使用\1, \2, \3表示匹配到的分组
 
-year, month, day = p.search('aaa2019-03-30').groups()
+print(regex.sub(r'username: \1, domain: \2, suffix: \3', 
+        'rui.jiang@pekall.com'))
+print(regex.sub(r'username: \1, domain: \2, suffix: \3', text))
 
-#%% 替换
-
-phone = '123-123-2235 # 这是电话号码'
-re.sub(r'#.*$', '', phone)
