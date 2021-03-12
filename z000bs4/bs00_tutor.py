@@ -290,6 +290,10 @@ for tag in soup(string=regex):
     if (isinstance(tag, Comment)):
         continue
     
+    if (tag.parent.name == 'script' or
+        tag.parent.name == 'style'):
+        continue
+    
     s = re.sub(r'\s+', '', tag)
     
     print(f'begin trans: {s}')
