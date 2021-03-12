@@ -2,6 +2,12 @@
 import time
 import calendar
 
+
+time.sleep(1)
+
+#%%
+time.sleep(1)
+
 #%% 基本概念
 # struct_time alias time tuple
 # 函数返回time tuple

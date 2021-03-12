@@ -9,6 +9,10 @@ emptyDict = dict()
 emptyDict
 
 #%%
+emptyDict.
+emptyDict
+
+#%%
 type(emptyDict)
 
 #%%
