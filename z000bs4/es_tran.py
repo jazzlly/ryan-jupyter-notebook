@@ -168,3 +168,16 @@ for zh, en in done_trans:
 "Hello world!".capitalize()
 
 #%%
+import os
+
+for root, dirs, files in os.walk("c:/Users/jiang/git/pekall/web/mdm/web-admin"):
+    for file in files:
+        if file.endswith(".html"):
+            print(file)
+            print(os.path.join(root, file))
+
+#%%
+import re
+
+file_regex = re.compile(r'[/\\]')
+tokens = file_regex.split(fullname)
