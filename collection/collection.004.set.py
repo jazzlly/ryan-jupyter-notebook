@@ -8,6 +8,11 @@ Created on Fri May  8 05:59:32 2020
 
 s1 = {1, 2.0, 'hello'}
 print(s1)
+s1.add(3.0)
+print(s1)
+
+print(3.0 in s1)
+#%%
 
 s2 = set([1, 2.0, 'hello'])
 print(s2)
