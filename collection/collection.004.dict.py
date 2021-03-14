@@ -9,8 +9,6 @@ emptyDict = dict()
 emptyDict
 
 #%%
-emptyDict.
-emptyDict
 
 #%%
 type(emptyDict)
@@ -219,3 +217,16 @@ flattext
 #%%
 tup = [[x for x in words] for words in all_words]
 tup
+
+#%%
+
+my_dict = {}
+my_dict['b'] = {'bar': 'baz'}
+
+inner_dict = my_dict.setdefault('a', {})
+inner_dict['foo'] = 'bar'
+
+dict2 = my_dict.setdefault('b', {})
+dict2['waha'] = 'haha'
+
+print(my_dict)

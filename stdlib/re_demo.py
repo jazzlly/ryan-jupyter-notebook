@@ -84,3 +84,12 @@ print(re.search('^X', 'AX\nB\nX', re.MULTILINE))
 
 print(re.search('X', 'AX\nB\nX', re.MULTILINE))
 # 匹配任意位置 <re.Match object; span=(1, 2), match='X'>
+
+#%%
+import re
+
+key_regex = re.compile(r'[^a-z]')
+s = 'WiFi traffic (M)'
+s1 = regex.sub('_', s.lower()[:45])
+print(s1)
+
