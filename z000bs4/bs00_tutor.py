@@ -54,7 +54,8 @@ print(soup.html.head.title.string.parent == soup.html.head.title)
 soup.a.parents
 
 #%% 兄弟节点
-sibling_soup = BeautifulSoup("<a><b>text1</b><c>text2</c></b></a>", features="lxml")
+sibling_soup = BeautifulSoup('''<a><b>text1</b><c>text2</c></a>''', 
+    features="lxml")
 print(sibling_soup.prettify())
 print()
 
@@ -119,6 +120,7 @@ import re
 for tag in soup.find_all(re.compile(r'^b')):
     print(tag.name)
 
+#%%
 for tag in soup.find_all(re.compile(r't')):
     print(tag.name)
 

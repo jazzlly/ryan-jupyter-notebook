@@ -34,6 +34,7 @@ def build_es_dict(es):
     return es_dict
 
 key_regex = re.compile(r'[^a-z0-9]')
+
 def trans_zh_en(zh, lang_dict, ts):
     ''' 将中文翻译为英文。首先通过es字典，没找到则在线查询google'''
 
@@ -78,7 +79,7 @@ def add_lang_props_to_resource(key, en, zh, filename):
     print(f"add lang props, key: {key}, en: {en}, zh: {zh}， filename: {filename}")
 
 def flush_lang_prop_to_files():
-    filepath = 'c:/Users/jiang/git/pekall/web/mdm/web-admin/themes/default/resource/il8n'
+    filepath = 'c:/Users/think/git/pekall/web/web-admin/themes/default/resource/il8n'
     for k, v in lang_prop_dict.items():
         fullname = os.path.join(filepath, k)
         print(fullname)
@@ -164,7 +165,7 @@ def is_excluded_file(fullname):
             return True
     return False
 
-for root, dirs, files in os.walk("c:/Users/jiang/git/pekall/web/mdm/web-admin"):
+for root, dirs, files in os.walk("c:/Users/think/git/pekall/web/web-admin"):
     for file in files:
         if file.endswith(".html"):
             print('##########################################')
@@ -172,7 +173,7 @@ for root, dirs, files in os.walk("c:/Users/jiang/git/pekall/web/mdm/web-admin"):
             print(fullname)
             if is_excluded_file(fullname):
                 continue
-            # web_path = 'c:/Users/jiang/git/pekall/web/mdm/web-admin'
+            # web_path = 'c:/Users/think/git/pekall/web/web-admin'
             # fullname = web_path + '/device/device_list.html'
             trans_html(fullname)
 
@@ -181,7 +182,7 @@ flush_lang_prop_to_files()
 
 #%%
 # def flush_lang_prop_to_files():
-#     filepath = 'c:/Users/jiang/git/pekall/web/mdm/web-admin/themes/default/resource/il8n'
+#     filepath = 'c:/Users/think/git/pekall/web/web-admin/themes/default/resource/il8n'
 #     for k, v in lang_prop_dict.items():
 #         fullname = os.path.join(filepath, k)
 #         print(fullname)

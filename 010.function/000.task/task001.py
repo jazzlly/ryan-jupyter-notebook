@@ -1,13 +1,3 @@
-
-#%%
-
-'''
-定时获取fyna数据，保存到es中
-1. 获取全量数据，保存到es中
-2. 获取增量数据，保存到es中
-3. 定时任务，获取增量数据
-'''
-
 #%%
 import numpy as np
 import pandas as pd
@@ -25,7 +15,6 @@ es = Elasticsearch(
     http_auth=('elastic', 'Ryanes12#$'),
     scheme='http', port=9200)
 
-#%%
 def es_bulk(df, genDocFunc):
     """
         bulk insert dataframe to es
