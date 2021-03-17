@@ -126,5 +126,3 @@ bond_investing_global_us_10 = ak.bond_investing_global(
     start_date="2005-01-01", end_date=time.strftime(
         '%Y-%m-%d', time.localtime()))
 print(bond_investing_global_us_10)
-
-
