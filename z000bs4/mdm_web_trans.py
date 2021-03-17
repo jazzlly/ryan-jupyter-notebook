@@ -12,7 +12,7 @@ from bs4 import NavigableString
 
 from datetime import datetime
 from elasticsearch import Elasticsearch
-from translate import Translator
+# from translate import Translator
 
 es = Elasticsearch(
     ['192.168.11.27'], 
