@@ -13,7 +13,49 @@ for i in range(len(js_news_df)):
     print(f"{js_news_df.iloc[i, 0]}")
     print(f"{js_news_df.iloc[i, 1]}")
     print()
-    
+
+#%%
+'''
+黄金需要关注哪些指标
+
+十年期美债 负相关
+
+2021-03-18 09:00:05
+【交易所开盘】<br/>上海黄金交易所黄金T+D 
+3月18日（周四）早盘盘初上涨0.7%报367.02元/克；<br/>
+上海黄金交易所白银T+D 3月18日（周四）早盘盘初上涨1.67%报5429.0元/千克。
+
+2021-03-18 08:28:43
+<b>【行情】COMEX期金站上1750美元/盎司，日内涨1.36%。</b>
+
+<b>美联储给多头“送礼”，黄金看涨情绪爆表，拜登这顿操作也要给
+黄金多头助力？速看金银T+D日报>></b>
+
+'''
+
+#%% 美国CPI月率报告
+import akshare as ak
+macro_usa_cpi_monthly_se = ak.macro_usa_cpi_monthly()
+# print(macro_usa_cpi_monthly_se.name)
+print(macro_usa_cpi_monthly_se)
+
+#%% 美国核心CPI月率报告
+import akshare as ak
+macro_usa_core_cpi_monthly_se = ak.macro_usa_core_cpi_monthly()
+print(macro_usa_core_cpi_monthly_se.name)
+print(macro_usa_core_cpi_monthly_se)
+
+#%% 美国失业率
+import akshare as ak
+macro_usa_unemployment_rate_se = ak.macro_usa_unemployment_rate()
+print(macro_usa_unemployment_rate_se.name)
+print(macro_usa_unemployment_rate_se)
+
+#%% 美国非农就业人数报告
+import akshare as ak
+macro_usa_non_farm_se = ak.macro_usa_non_farm()
+print(macro_usa_non_farm_se.name)
+print(macro_usa_non_farm_se)
 
 #%% 社融数据
 import akshare as ak
