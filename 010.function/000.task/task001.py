@@ -174,6 +174,18 @@ def gen_bond_investing_global_us_10_doc(df, idx):
         }
     }
 
+def gen_crypto_hist_bitcoin_doc(df, idx):
+    """ 比特币 """
+    return {
+        '_index': 'pyfy_crypto_hist_bitcoin',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'open': float(df['开盘'][idx]),
+            'close': float(df['收盘'][idx]),
+            'amount': float(df['交易量'][idx]),
+            'trend': df['涨跌幅'][idx]
+        }
+    }
 
 # 获取央行宏观操作更新数据
 last_date = getLastRecordDateInEs_macro_china_gksccz(es);
@@ -221,11 +233,15 @@ df = ak.bond_investing_global(
         '%Y-%m-%d', time.localtime()))
 es_bulk(df[df.index > last_date], gen_bond_investing_global_us_10_doc)
 
-#%% 
-# 社融数据
-last_date = getLastRecordDateInEs(es, 
-    "pyfy_macro_china_shrzgm").replace('-', '')[:6]
-df = ak.macro_china_shrzgm()
-print(last_date)
-es_bulk(df[df['月份'] > last_date], 
-    gen_macro_china_shrzgm_doc)
+# bitcoin
+last_date = getLastRecordDateInEs(es, "pyfy_crypto_hist_bitcoin")
+last_date = last_date.replace('-', '')
+localtime = time.strftime('%Y%m%d', time.localtime())
+
+if (last_date != localtime):
+    crypto_hist_df = ak.crypto_hist(symbol="比特币", period="每日", 
+                                start_date=last_date, 
+                                end_date=localtime)
+    crypto_hist_df = crypto_hist_df[::-1]
+    
+    es_bulk(crypto_hist_df, gen_crypto_hist_bitcoin_doc)

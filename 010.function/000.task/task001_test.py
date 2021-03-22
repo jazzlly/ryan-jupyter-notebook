@@ -20,12 +20,41 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 from elasticsearch import NotFoundError
+from task001 import getLastRecordDateInEs
+from task001 import es_bulk
 
 es = Elasticsearch(
     ['192.168.10.252'], 
     http_auth=('elastic', 'Ryanes12#$'),
     scheme='http', port=9200)
 
+#%%
+# 比特币
+def gen_crypto_hist_bitcoin_doc(df, idx):
+    """ 比特币 """
+    return {
+        '_index': 'pyfy_crypto_hist_bitcoin',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'open': float(df['开盘'][idx]),
+            'close': float(df['收盘'][idx]),
+            'amount': float(df['交易量'][idx]),
+            'trend': df['涨跌幅'][idx]
+        }
+    }
+    
+last_date = getLastRecordDateInEs(es, "pyfy_crypto_hist_bitcoin")
+last_date = last_date.replace('-', '')
+localtime = time.strftime('%Y%m%d', time.localtime())
+
+if (last_date != localtime):
+    crypto_hist_df = ak.crypto_hist(symbol="比特币", period="每日", 
+                                start_date=last_date, 
+                                end_date=localtime)
+    crypto_hist_df = crypto_hist_df[::-1]
+    
+    es_bulk(crypto_hist_df, gen_crypto_hist_bitcoin_doc)
+    
 
 #%%
 macro_china_gksccz_df = ak.macro_china_gksccz()

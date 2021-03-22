@@ -16,6 +16,20 @@ for i in range(len(js_news_df)):
     
 
 
+# %%
+import akshare as ak
+crypto_hist_df = ak.crypto_hist(symbol="比特币", period="每日", 
+                                start_date="20100101", 
+                                end_date="20210322")
+print(crypto_hist_df)
+
+'''
+
+crypto_hist_df.index DatetimeIndex
+
+column
+Index(['收盘', '开盘', '高', '低', '交易量', '涨跌幅'], dtype='object')
+'''
 #%%
 '''
 黄金需要关注哪些指标
