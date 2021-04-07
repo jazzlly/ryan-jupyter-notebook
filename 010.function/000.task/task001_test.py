@@ -29,6 +29,36 @@ es = Elasticsearch(
     scheme='http', port=9200)
 
 #%%
+index_us_dollar_df = ak.index_investing_global(
+    country="美国", index_name="美元指数", period="每日", 
+    start_date="2007-01-01", end_date="2021-04-06")
+print(index_us_dollar_df)
+print(index_us_dollar_df.info())
+#%%
+# 比特币
+def gen_index_us_dollar_doc(df, idx):
+    """ 美元指数 """
+    return {
+        '_index': 'pyfy_index_us_dollar',
+        '_source': {
+            'date': idx.strftime('%Y-%m-%d'),
+            'open': float(df['开盘'][idx]),
+            'close': float(df['收盘'][idx]),
+            'amount': float(df['交易量'][idx])
+        }
+    }
+    
+last_date = getLastRecordDateInEs(es, "pyfy_index_us_dollar")
+localtime = time.strftime('%Y-%m-%d', time.localtime())
+
+if (last_date != localtime):
+    index_us_dollar_df = ak.index_investing_global(
+        country="美国", index_name="美元指数", period="每日", 
+        start_date=last_date, end_date=localtime)
+    index_us_dollar_df = index_us_dollar_df[::-1]
+    
+    es_bulk(index_us_dollar_df, gen_index_us_dollar_doc)
+#%%
 # 比特币
 def gen_crypto_hist_bitcoin_doc(df, idx):
     """ 比特币 """

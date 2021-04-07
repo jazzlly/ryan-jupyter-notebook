@@ -14,8 +14,18 @@ for i in range(len(js_news_df)):
     print(f"{js_news_df.iloc[i, 1]}")
     print()
     
+#%%
+import akshare as ak
+ak.watch()
+#%%
+import akshare as ak
+index_us_dollar_df = ak.index_investing_global(
+    country="美国", index_name="美元指数", period="每日", 
+    start_date="2007-01-01", end_date="2021-04-06")
+print(index_us_dollar_df)
 
-
+#%%
+print(index_us_dollar_df.info())
 # %%
 import akshare as ak
 crypto_hist_df = ak.crypto_hist(symbol="比特币", period="每日", 
