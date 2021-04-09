@@ -6,45 +6,20 @@
 #%% 统计学基本概念
 import numpy as np
 
-nparray = np.array([1, 2, 3])
-
-#%%
-nparray = np.array([[1,2,3], [4,5,6]])
-
-#%% 
-type(nparray) #numpy.ndarray
-
-
-#%% 每个数据的类型相同
-nparray.dtype
-
-#%% n维数组
-nparray.ndim
-
-#%% 
-nparray.shape
-
-#%%
 a = np.arange(15).reshape(3, 5)
 print("size of a: {}".format(a.size))
 print("dim of a: {}".format(a.ndim))
 print("shape of a: {}".format(a.shape))
-print("type of a: {}".format(a.dtype.name))
+print("type of a: {}".format(a.dtype))
 print("itemsize of a: {}".format(a.itemsize))
 print("type of a: {}".format(type(a)))
 
+#%%
 vector = np.array([1, 2, 3])
-matrix = np.array([(1, 2, 3), (2, 3, 4)])
-matrix1 = np.array([[1, 2, 3], [2, 3, 4]])
-print("matrix : {}".format(matrix1))
-
-matrix2 = np.array([[1, 2, 3], [2, 3, 4]], dtype=complex)
-print("matrix : {}".format(matrix2))
+matrix = np.array([[1, 2, 3], [2, 3, 4]])
+print("matrix : {}".format(matrix))
 
 #%% 
-np.arange(5)
-
-#%%
 print("zeros : {}".format(np.zeros([3, 3])))
 print("zeros : {}".format(
     np.zeros([3, 3], dtype=np.int64)))
@@ -76,7 +51,6 @@ np.eye(4)
 arange = np.arange(15)
 print(f'arrange: {arange}')
 
-
 #%% 数组运算
 array = np.arange(15).reshape(3, 5)
 
@@ -87,14 +61,15 @@ print(f'\narray * array: \n {array*array}')
 print(f'\narray > 5: {array > 5}')
 print(f'\narray > 2* array: {array > 2* array}')
 
-
 #%% 通过下标方式访问元素
 array[2][4]
 
 #%%
 array[2,4]
 
-#%% 切片： 总是对数据进行引用
+#%% 
+'''
+切片： 总是对数据进行引用
 #  array[r1:r2, c1:c2]  [r1, r2), [c1, c2)
 # 如果r1没有，则缺省是0， 如果r2没有，则缺省为-1
 
@@ -102,29 +77,44 @@ array[2,4]
 #　array[[r1, r2, r3], [c1, c2, c3]]
 
 # array([0, 1, 2, 3, 4])
-array[0] # 数组的索引， 获取的是低维数组
+'''
+print(array)
+# get row
+array[0]  # 数组的索引， 获取的是低维数组
 
 #%%
 # array([ 0,  5, 10])
-array[:, 0] # 数组的索引， 获取的是低维数组
+print(array)
+# get column
+array[:, 1] # 数组的索引， 获取的是低维数组
 
 #%% 
 # array([[0, 1, 2, 3, 4]])
+print(array)
+# get first row
 array[0:1] # 切片，获取的是二维数组
 
 #%%
+# get first two rows
+print(array[0:2])
 
+#%%
+print(array)
+# get first column
 array[:, 0:1] # 切片，获取的是二维数组
 
 #%% 
+# get a column
 array[:, 2] # 索引，获取的是一维数组
 
 #%% 布尔索引, 通过boolen值过滤行，列
 names=np.array(['bob', 'bill', 'bob', 'richard', 
     'tom', 'jerry', 'bob'])
-data=np.arange(28).reshape(7,4)
 
 print(f'names=="bob"{names=="bob"}')
+
+data = np.arange(28).reshape(7, 4)
+print(data)
 print(data[names == 'bob'])  #获取true对应的行
 
 print(data[names == 'bob', 0])  #获取true对应的行
