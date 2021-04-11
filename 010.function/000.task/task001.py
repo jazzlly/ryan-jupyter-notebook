@@ -6,9 +6,15 @@ import akshare as ak
 import json
 import time
 from datetime import datetime
+from datetime import date
+from time import sleep
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 from elasticsearch import NotFoundError
+
+from selenium import webdriver
+from bs4 import BeautifulSoup
+from bs4 import NavigableString
 
 es = Elasticsearch(
     ['192.168.10.252'], 
@@ -168,7 +174,8 @@ def gen_bond_investing_global_us_10_doc(df, idx):
     return {
         '_index': 'pyfy_bond_investing_global_us_10',
         '_source': {
-            'date': idx.strftime('%Y-%m-%d'),
+            # 'date': idx.strftime('%Y-%m-%d'),
+            'date': df['date'][idx],
             'close': float(df['收盘'][idx]),
             'trend_pct': df['涨跌幅'][idx]
         }
@@ -187,6 +194,44 @@ def gen_crypto_hist_bitcoin_doc(df, idx):
         }
     }
 
+
+def us_10_bond():
+    browser = webdriver.Chrome()
+    browser.get('https://cn.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data')
+    browser.maximize_window()
+    sleep(5)
+    print("browser open!")
+
+    soup = BeautifulSoup(browser.page_source, 'lxml')
+    result_df = pd.DataFrame()
+
+    for e in soup.find(id='results_box').table.tbody.children:
+        if isinstance(e, NavigableString):
+            continue
+        
+        for i, ec in enumerate(e.children):
+            if isinstance(ec, NavigableString):
+                continue
+            # print(i, ec)
+            # 日期
+            if i == 1:
+                dates = ec.text.replace('年', '-').replace('月', '-').replace('日', "-").split('-')
+                d = date(int(dates[0]), int(dates[1]), int(dates[2]))
+                # print(d.strftime('%Y-%m-%d'))
+                ds = d.strftime('%Y-%m-%d')
+            # 收盘
+            if i == 3:
+                # print(f'close: {ec.text}')
+                close = ec.text
+            # 趋势
+            if i == 11:
+                # print(f"trend: {ec.text.replace('%', '')}")
+                trend = ec.text.replace('%', '')
+                
+        df = pd.DataFrame({'date': [ds], '收盘': [close], '涨跌幅': [trend]})
+        result_df = result_df.append(df, ignore_index=True)
+    return result_df
+    
 # 获取央行宏观操作更新数据
 last_date = getLastRecordDateInEs_macro_china_gksccz(es);
 macro_china_gksccz_df = ak.macro_china_gksccz()
@@ -211,13 +256,14 @@ if (last_date != localtime):
         start_date=last_date, end_date=time.strftime(
             '%Y-%m-%d', time.localtime()))
     es_bulk(bond_investing_global_df, gen_bond_investing_global_doc)
-    
+
 # 获取上证指数
 df = ak.stock_zh_index_daily(symbol="sh000001")
 last_date = getLastRecordDateInEs(es, "pyfy_stock_zh_index_daily")
 es_bulk(df[df.index > last_date], gen_stock_zh_index_daily_doc)
 
 # 中国十年期国债
+
 last_date = getLastRecordDateInEs(es, "pyfy_bond_investing_global_zh_10")
 df = ak.bond_investing_global(
     country="中国", index_name="中国10年期国债", period="每日", 
@@ -232,6 +278,13 @@ df = ak.bond_investing_global(
     start_date=last_date, end_date=time.strftime(
         '%Y-%m-%d', time.localtime()))
 es_bulk(df[df.index > last_date], gen_bond_investing_global_us_10_doc)
+
+'''
+# 美国10年期国债
+last_date = getLastRecordDateInEs(es, "pyfy_bond_investing_global_us_10")
+df = us_10_bond()
+es_bulk(df[df['date'] > last_date], gen_bond_investing_global_us_10_doc)
+'''
 
 # bitcoin
 last_date = getLastRecordDateInEs(es, "pyfy_crypto_hist_bitcoin")

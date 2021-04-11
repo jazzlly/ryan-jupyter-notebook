@@ -17,6 +17,13 @@ for i in range(len(js_news_df)):
 #%%
 import akshare as ak
 ak.watch()
+
+#%% positional
+bond_investing_global_df = ak.bond_investing_global(
+        country="中国", index_name="中国10年期国债", period="每日", 
+        start_date=last_date, end_date=time.strftime(
+            '%Y-%m-%d', time.localtime()))
+
 #%%
 import akshare as ak
 index_us_dollar_df = ak.index_investing_global(

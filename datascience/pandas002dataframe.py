@@ -67,6 +67,9 @@ print(data)
 data['x'][data['x'] >= 10]
 
 #%% 
+data[data['x'] > 10]
+
+#%% 
 data.x[data.x>=10]
 
 #%% 获取多列
