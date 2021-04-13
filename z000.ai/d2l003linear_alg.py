@@ -47,4 +47,34 @@ A
 #%%
 A, A.cumsum(axis=0)
 
-# %%
+# %% dot product
+x = torch.arange(4, dtype=torch.float32)
+y = torch.ones(4, dtype=torch.float32)
+x, y, torch.dot(x, y)
+
+#%% alias for torch
+torch.sum(x * y)
+
+#%% matrix-vector multiplication
+A = torch.arange(20).reshape(4,5)
+x = torch.ones(5, dtype=torch.float32)
+
+A, x, torch.mv(A, x)
+
+#%% matrix-matrix multiplication
+A = torch.arange(20).reshape(4, 5)
+B = torch.ones(5, 3)
+
+A, B, torch.mm(A, B)
+
+#%% norms
+
+u = torch.tensor([3.0, -4.0])
+torch.norm(u)  # L2 norm, like distance
+
+#%% L1 norm
+torch.abs(u).sum() # sum of abs values
+
+#%% norm of matrix
+torch.norm(torch.ones(3, 4))
+# sqrt(for i in range(r): for j in range(c): A[i,j] ** 2)
