@@ -93,6 +93,9 @@ X[2, :] = 2000
 X[:, 4] = 3000
 print(X)
 
+#%%
+X[:, :1]
+
 #%% 节省内存
 X = torch.arange(12).reshape(3, -1)
 Y = torch.arange(100, 112).reshape(3, -1)

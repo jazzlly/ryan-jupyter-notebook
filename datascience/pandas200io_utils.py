@@ -26,9 +26,3 @@ print(inputs)
 # inputs['Alley_nan'] = (inputs['Alley'] != 'Pave')
 # del inputs['Alley']
 # inputs
-
-#%%
-import torch
-
-X, Y = torch.tensor(inputs.values), torch.tensor(outputs.values)
-X, Y
