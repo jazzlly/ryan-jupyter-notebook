@@ -20,13 +20,43 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 from elasticsearch import NotFoundError
-from task001 import getLastRecordDateInEs
-from task001 import es_bulk
+# from task001 import getLastRecordDateInEs
+# from task001 import es_bulk
 
 es = Elasticsearch(
     ['192.168.10.252'], 
     http_auth=('elastic', 'Ryanes12#$'),
     scheme='http', port=9200)
+
+#%%
+
+# 美国10年期国债
+last_date = '2021-04-01'
+df = ak.bond_investing_global(
+    country="美国", index_name="美国10年期国债", period="每日", 
+    start_date=last_date, end_date=time.strftime(
+        '%Y-%m-%d', time.localtime()))
+print('done!')
+#%%
+def gen_rate_interbank_doc(df, idx):
+    """ Shibor隔夜利率 """
+    return {
+        '_index': 'pyfy_rate_interbank',
+        '_source': {
+            'date': datetime.strptime(df['日期'][idx], "%Y-%m-%d"),
+            'rate_pct': float(df['利率'][idx]),
+            'trend': df['涨跌'][idx]
+        }
+    }
+    
+# 获取Shibor隔夜利率数据
+last_date = '2021-04-01'
+page = '100' if last_date == '1970-01-01' else '5'
+rate_interbank = ak.rate_interbank(market="上海银行同业拆借市场", 
+    symbol="Shibor人民币", indicator="隔夜", need_page=page);
+df = rate_interbank[rate_interbank['日期'] > last_date]
+# es_bulk(df, gen_rate_interbank_doc)
+
 
 #%%
 index_us_dollar_df = ak.index_investing_global(

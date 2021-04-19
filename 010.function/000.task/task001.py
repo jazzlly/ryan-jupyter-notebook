@@ -117,8 +117,8 @@ def gen_rate_interbank_doc(df, idx):
         '_index': 'pyfy_rate_interbank',
         '_source': {
             'date': datetime.strptime(df['日期'][idx], "%Y-%m-%d"),
-            'rate_pct': float(df['利率(%)'][idx]),
-            'trend': df['涨跌(BP)'][idx]
+            'rate_pct': float(df['利率'][idx]),
+            'trend': df['涨跌'][idx]
         }
     }
     
@@ -174,8 +174,8 @@ def gen_bond_investing_global_us_10_doc(df, idx):
     return {
         '_index': 'pyfy_bond_investing_global_us_10',
         '_source': {
-            # 'date': idx.strftime('%Y-%m-%d'),
-            'date': df['date'][idx],
+            'date': idx.strftime('%Y-%m-%d'),
+            # 'date': df['date'][idx],
             'close': float(df['收盘'][idx]),
             'trend_pct': df['涨跌幅'][idx]
         }
