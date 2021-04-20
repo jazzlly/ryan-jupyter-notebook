@@ -19,15 +19,26 @@ for i in range(8):
 import torch
 
 x = torch.arange(4.0, requires_grad=True)
-x, x.grad
+print(x, x.grad)
 
-#%%
 y = 2 * torch.dot(x, x)
 print(y)
 
 y.backward() # 求梯度
 x.grad
 
+#%%
+x = torch.arange(4.0, requires_grad=True)
+y = 2 * torch.dot(x, x)
+
+y.backward(retain_graph=True)
+print(x.grad)
+
+y.backward(retain_graph=True)
+print(x.grad)
+
+y.backward(retain_graph=True)
+print(x.grad)
 #%% sum的导数
 x.grad.zero_()
 y = x.sum()
