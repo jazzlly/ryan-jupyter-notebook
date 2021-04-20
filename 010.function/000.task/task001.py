@@ -12,7 +12,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 from elasticsearch import NotFoundError
 
-from selenium import webdriver
+# from selenium import webdriver
 from bs4 import BeautifulSoup
 from bs4 import NavigableString
 
@@ -194,7 +194,7 @@ def gen_crypto_hist_bitcoin_doc(df, idx):
         }
     }
 
-
+'''
 def us_10_bond():
     browser = webdriver.Chrome()
     browser.get('https://cn.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data')
@@ -231,7 +231,8 @@ def us_10_bond():
         df = pd.DataFrame({'date': [ds], '收盘': [close], '涨跌幅': [trend]})
         result_df = result_df.append(df, ignore_index=True)
     return result_df
-    
+'''
+
 # 获取央行宏观操作更新数据
 last_date = getLastRecordDateInEs_macro_china_gksccz(es);
 macro_china_gksccz_df = ak.macro_china_gksccz()
