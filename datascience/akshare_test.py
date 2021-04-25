@@ -28,7 +28,7 @@ bond_investing_global_df = ak.bond_investing_global(
 import akshare as ak
 index_us_dollar_df = ak.index_investing_global(
     country="美国", index_name="美元指数", period="每日", 
-    start_date="2007-01-01", end_date="2021-04-06")
+    start_date="2021-04-20", end_date="2021-04-21")
 print(index_us_dollar_df)
 
 #%%
@@ -118,7 +118,8 @@ rate_interbank_df = ak.rate_interbank(market="上海银行同业拆借市场",
     symbol="Shibor人民币", indicator="隔夜", need_page="10")
 # print(rate_interbank_df)
 # rate_interbank_df.del
-del rate_interbank_df['涨跌(BP)']
+del rate_interbank_df['涨跌']
+
 rate_interbank_df.plot()
 
 #%% 十年期国债
@@ -133,7 +134,7 @@ print(bond_investing_global_df)
 #%%
 import akshare as ak
 bond_investing_global_df = ak.bond_investing_global(
-    country="美国", index_name="美国10年期国债", period="每周", 
+    country="美国", index_name="美国10年期国债", period="每日", 
     start_date="2019-01-01", end_date="2021-03-04")
 print(bond_investing_global_df)
 

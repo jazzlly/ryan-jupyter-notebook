@@ -247,24 +247,26 @@ rate_interbank = ak.rate_interbank(market="上海银行同业拆借市场",
 df = rate_interbank[rate_interbank['日期'] > last_date]
 es_bulk(df, gen_rate_interbank_doc)
 
-# 中国十年期国债
-last_date = getLastRecordDateInEs(es, 'pyfy_bond_investing_global')
-localtime = time.strftime('%Y-%m-%d', time.localtime())
-
-if (last_date != localtime):
-    bond_investing_global_df = ak.bond_investing_global(
-        country="中国", index_name="中国10年期国债", period="每日", 
-        start_date=last_date, end_date=time.strftime(
-            '%Y-%m-%d', time.localtime()))
-    es_bulk(bond_investing_global_df, gen_bond_investing_global_doc)
-
 # 获取上证指数
 df = ak.stock_zh_index_daily(symbol="sh000001")
 last_date = getLastRecordDateInEs(es, "pyfy_stock_zh_index_daily")
 es_bulk(df[df.index > last_date], gen_stock_zh_index_daily_doc)
 
-# 中国十年期国债
+# bitcoin
+last_date = getLastRecordDateInEs(es, "pyfy_crypto_hist_bitcoin")
+last_date = last_date.replace('-', '')
+localtime = time.strftime('%Y%m%d', time.localtime())
 
+if (last_date != localtime):
+    crypto_hist_df = ak.crypto_hist(symbol="比特币", period="每日",
+                                    start_date=last_date,
+                                    end_date=localtime)
+    crypto_hist_df = crypto_hist_df[::-1]
+
+    es_bulk(crypto_hist_df, gen_crypto_hist_bitcoin_doc)
+
+
+# 中国十年期国债
 last_date = getLastRecordDateInEs(es, "pyfy_bond_investing_global_zh_10")
 df = ak.bond_investing_global(
     country="中国", index_name="中国10年期国债", period="每日", 
@@ -280,22 +282,4 @@ df = ak.bond_investing_global(
         '%Y-%m-%d', time.localtime()))
 es_bulk(df[df.index > last_date], gen_bond_investing_global_us_10_doc)
 
-'''
-# 美国10年期国债
-last_date = getLastRecordDateInEs(es, "pyfy_bond_investing_global_us_10")
-df = us_10_bond()
-es_bulk(df[df['date'] > last_date], gen_bond_investing_global_us_10_doc)
-'''
 
-# bitcoin
-last_date = getLastRecordDateInEs(es, "pyfy_crypto_hist_bitcoin")
-last_date = last_date.replace('-', '')
-localtime = time.strftime('%Y%m%d', time.localtime())
-
-if (last_date != localtime):
-    crypto_hist_df = ak.crypto_hist(symbol="比特币", period="每日", 
-                                start_date=last_date, 
-                                end_date=localtime)
-    crypto_hist_df = crypto_hist_df[::-1]
-    
-    es_bulk(crypto_hist_df, gen_crypto_hist_bitcoin_doc)
