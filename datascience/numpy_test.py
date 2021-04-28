@@ -614,3 +614,10 @@ print(arr_2d)
 
 arr_2d[:, 2] = np.flip(arr_2d[:, 2])  # 翻转第三列
 print(arr_2d)
+
+
+
+#%%
+import numpy as np
+
+np.ones(10).cumsum(), np.ones(10).cumsum().tolist()
