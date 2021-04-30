@@ -47,9 +47,12 @@ def trans_prop_file(fullname):
     
     return None
 
-dir='c:/Users/think/git/pekall/web/web-admin/https_page/themes/default/resource/il8n'
+
+# dir='c:/Users/think/git/pekall/web/web-admin/https_page/themes/default/resource/il8n'
 # dir='c:/Users/think/git/pekall/web/web-admin'
 # dir='c:/Users/think/git/pekall/web/uni-auth-web'
+dir = '/Users/jiangrui/git/pekall/web/uni-auth-web'
+
 for root, dirs, files in os.walk(dir):
     for file in files:
         if file.endswith("_en-US.properties"):

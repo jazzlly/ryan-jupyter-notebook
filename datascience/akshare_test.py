@@ -6,6 +6,22 @@ import akshare as ak
 
 #%%
 import akshare as ak
+fund_em_fund_name_df = ak.fund_em_fund_name()
+print(fund_em_fund_name_df)
+
+#%%
+fund_etf_hist_sina_df = ak.fund_etf_hist_sina(
+    symbol="sz169103")
+print(fund_etf_hist_sina_df)
+
+#%%
+fund_em_info_df = ak.fund_em_open_fund_info(
+    fund="163402", indicator="累计收益率走势")
+print(fund_em_info_df)
+
+
+#%%
+import akshare as ak
 js_news_df = ak.js_news(indicator='最新资讯')
 
 # js_news_df['content']
@@ -16,7 +32,9 @@ for i in range(len(js_news_df)):
     
 #%%
 import akshare as ak
-ak.watch()
+bond_investing_global_df = ak.bond_investing_global(
+    country="中国", index_name="中国1年期国债", period="每周", start_date="2000-01-01", end_date="2020-06-06")
+print(bond_investing_global_df)
 
 #%% positional
 bond_investing_global_df = ak.bond_investing_global(

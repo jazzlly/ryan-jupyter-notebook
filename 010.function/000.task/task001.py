@@ -252,6 +252,14 @@ df = ak.stock_zh_index_daily(symbol="sh000001")
 last_date = getLastRecordDateInEs(es, "pyfy_stock_zh_index_daily")
 es_bulk(df[df.index > last_date], gen_stock_zh_index_daily_doc)
 
+# 美国10年期国债
+last_date = getLastRecordDateInEs(es, "pyfy_bond_investing_global_us_10")
+df = ak.bond_investing_global(
+    country="美国", index_name="美国10年期国债", period="每日",
+    start_date=last_date, end_date=time.strftime(
+        '%Y-%m-%d', time.localtime()))
+es_bulk(df[df.index > last_date], gen_bond_investing_global_us_10_doc)
+
 # bitcoin
 last_date = getLastRecordDateInEs(es, "pyfy_crypto_hist_bitcoin")
 last_date = last_date.replace('-', '')
@@ -273,13 +281,5 @@ df = ak.bond_investing_global(
     start_date=last_date, end_date=time.strftime(
         '%Y-%m-%d', time.localtime()))
 es_bulk(df[df.index > last_date], gen_bond_investing_global_zh_10_doc)
-
-# 美国10年期国债
-last_date = getLastRecordDateInEs(es, "pyfy_bond_investing_global_us_10")
-df = ak.bond_investing_global(
-    country="美国", index_name="美国10年期国债", period="每日", 
-    start_date=last_date, end_date=time.strftime(
-        '%Y-%m-%d', time.localtime()))
-es_bulk(df[df.index > last_date], gen_bond_investing_global_us_10_doc)
 
 
