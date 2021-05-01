@@ -23,14 +23,12 @@ import akshare as ak
 链接：https://www.zhihu.com/question/22971046/answer/1560030633
 '''
 
-# 兴全趋势混合
-fund_em_info_df = ak.fund_em_open_fund_info(fund="163402", 
-                                            indicator="累计净值走势")
-print(fund_em_info_df)
+#%%
 
-
-'''
-<class 'pandas.core.frame.DataFrame'>
+''' 获取基金累计净值走势，并补全缺失日期数据 '''
+def filled_fund_data_df(fund_code):
+    '''
+    <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 3770 entries, 0 to 3769
 Data columns (total 2 columns):
  #   Column  Non-Null Count  Dtype 
@@ -38,22 +36,20 @@ Data columns (total 2 columns):
  0   净值日期    3770 non-null   object
  1   累计净值    3770 non-null   object
 '''
+    src_df = ak.fund_em_open_fund_info(fund_code, indicator="累计净值走势")
+
+    df_date_index = src_df.set_index('净值日期')
+    date_rng = pd.date_range(df_date_index.index[0], 
+        df_date_index.index[len(df_date_index) - 1], freq="D")
+
+    return df_date_index.reindex(date_rng, method='ffill')
+
+df = filled_fund_data_df("163402") # 兴全趋势混合
 
 
-'''
-将净值日期变成dateRange index?
-            净值日期     累计净值
-0     2005-11-03      1.0
-1     2005-11-11   0.9999
-2     2005-11-16   0.9999
-3     2005-11-17   0.9999
-4     2005-11-18   1.0007
-...          ...      ...
-3765  2021-04-23  11.2653
-3766  2021-04-26  11.2729
-3767  2021-04-27  11.2753
-3768  2021-04-28  11.2821
-3769  2021-04-29  11.3017
 
-[3770 rows x 2 columns]
-'''
+#%%
+
+# dates.dt.strftime('%Y-%m-%d')
+# datetime_list = pd.to_datetime(fund_em_info_df['净值日期'], format='%Y-%m-%d')
+# date_rng_list = date_rng.format()
