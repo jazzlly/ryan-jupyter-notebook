@@ -190,3 +190,32 @@ df3
 
 #%% 转置
 df3.T
+
+#%% filter multiple conditions
+
+data = {"grammer":["Python","C","Java","GO",np.nan,"SQL","PHP","python"],
+       "score":[1,2,np.nan,4,5,6,7,10]}
+
+df = pd.DataFrame(data)
+df
+
+#%% 提取包含字符串python的行
+
+# df[df['grammer'] == 'Python'] # 错误!
+df[df['grammer'].str.lower() == 'python']
+
+#%% 
+df.query('grammer.str.lower() == "python" | grammer.str.startswith("P")')
+# df[df.eval("Salary_in_1000>=100 & (Age <60) & FT_Team.str.startswith('S').values")]
+#%% 过滤组合条件, 使用 &, | 不能使用 and , or, 条件需要加上括号
+df[(df['grammer'].str.lower() == 'python') |
+   (df['grammer'].str.lower() == 'sql')]
+
+#%%
+df.loc[(df['grammer'].str.lower() == 'python') |
+   (df['grammer'].str.lower() == 'sql')]
+
+#%%
+idx = np.where((df['grammer'].str.lower() == 'python') |
+   (df['grammer'].str.lower() == 'sql'))
+df.loc[idx[0]]
