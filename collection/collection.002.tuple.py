@@ -1,9 +1,16 @@
-# -*- coding: utf-8 -*-
+`# -*- coding: utf-8 -*-
 """
 Created on Fri May  8 05:59:32 2020
 
 @author: jiang
 """
+
+#%% np unpacking
+import numpy as np
+
+r1, r2, r3 = np.random.randn(3, 10)
+r1, r2, r3
+
 #%% tuple是不可变的list
 
 #%%
