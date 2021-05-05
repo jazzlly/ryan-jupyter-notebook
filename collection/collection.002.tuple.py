@@ -125,3 +125,30 @@ tuple(afilter)
 
 #%%
 len(tuple(afilter))
+
+#%% one element tuple
+otp = 1,
+print(otp)
+
+opt1 = (1)  # 括号表达式不能够表示 单元素tuple
+            # opt1还是一个int
+print(otp == opt1)
+
+olist = [1] # 方括号能够定一个list
+print(olist)
+
+#%% unpacking
+fol, =  olist
+
+# unpacking one element tuple
+print(otp[0])
+
+first, = otp
+print(first)
+
+(f,) = otp
+print(f)
+
+[f1] = otp
+print(f1)
+
