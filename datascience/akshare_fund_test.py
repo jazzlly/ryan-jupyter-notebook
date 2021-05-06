@@ -58,11 +58,15 @@ print("done!")
 #%%
 deltas=[]
 days = 365
-fund = df_fgthczhh_003494
+fund = df_zosdxf_004241
 for r in range(len(fund) - days):    
-    deltas.append(100 * (float(fund.iloc[r + days][0]) - 
-                  float(fund.iloc[r][0])))
+    deltas.append(float(fund.iloc[r + days][0]) - 
+                  float(fund.iloc[r][0]))
 
+s = pd.Series(deltas)
+# s.plot(kind='hist')
+s.plot(kind='kde')
+'''
 bins = list(range(-500, 500, 50))
 
 cats = pd.cut(deltas, bins, include_lowest=True)
@@ -71,6 +75,7 @@ value_counts = pd.value_counts(cats, sort=False) / (len(fund) - days) * 100
 ax = value_counts.plot.bar(rot=0, color="r", figsize=(6,4))
 plt.xticks(rotation='vertical')
 plt.show()
+'''
 
 
 #%%

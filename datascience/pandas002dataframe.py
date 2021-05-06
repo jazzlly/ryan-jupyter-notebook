@@ -72,8 +72,17 @@ data[data['x'] > 10]
 #%% 
 data.x[data.x>=10]
 
-#%% 获取多列
+#%%
+#%% 获取列
 data[['x', 'z']]
+
+type(data[['x', 'y']])  # pandas.core.frame.DataFrame
+
+# two brackets to dataframe
+type(data[['x']])  # pandas.core.frame.DataFrame
+
+# one brackets to series
+type(data['x'])  # pandas.core.series.Series
 
 #%% 获取多列并过滤
 data[['x', 'z']][data['x'] > 10][data['z'] > 10]
@@ -81,12 +90,16 @@ data[['x', 'z']][data['x'] > 10][data['z'] > 10]
 #%% 
 data[:][data['x'] > 10]
 
+#%%
+data.loc['a']
+# type(data.loc['a'])  # series, 行向量的转置
+
+#%% 获取行，返回dataframe
+data.loc[['c']]
+
 #%% data.loc[row][col]
 data.loc['a']['x']
 
-#%%
-data.loc['a'] 
-# type(data.loc['a'])  # series, 行向量的转置
 
 #%% data.iloc[row][col]
 data.iloc[0][0]
@@ -94,15 +107,24 @@ data.iloc[0][0]
 #%% 获取行, 转化为series
 data.iloc[0]
 
+#%% 获取行，返回dataframe
+data.iloc[[0]]
+
+#%% 获取行，返回dataframe
+data.iloc[[0, -1]]
+
 #%%  dataframe切片返回的是切片
 # 通过切片获取行， 获取第一行。返回的是dataframe
 data[0:1]
 
-#%%
+#%% 获取第一行
+data[:1]
+
+#%% 所有行
 data[:]
 
-#%% 
-data[::-1]
+#%% 所有行逆序
+data[::-1] 
 
 #%%
 data[0:1]['x']['a']

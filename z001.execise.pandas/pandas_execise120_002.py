@@ -68,3 +68,56 @@ import matplotlib.pyplot as plt
 
 bins = np.arange(10000, 40000, 2500)
 
+box=pd.cut(df['salary_mean'], bins)
+foo = [(v.left + v.right)/2 for v in box.value_counts().index]
+
+# plt.bar(foo, box.value_counts().values, width=2000)
+# df.salary_mean.plot(kind='hist')
+df.salary_mean.plot(kind='kde')
+
+#%%
+df.salary_mean.plot(kind='kde')
+
+#%%
+
+# df.salary_mean.plot(kind='bar')
+
+#%%
+s = pd.Series([1, 2, 2, 3, 3, 3, 4, 4,  5, 4, 3, 2, 1])
+s.plot(kind='kde')
+s.plot(kind='hist')
+
+
+
+#%%
+df['test'] = df['createTime'].map(lambda x: x.strftime('%Y-%m-%d_')) + df['education']
+
+#%%
+del df['test']
+
+#%%
+# df['test'] = df['education'] + df['salary_mean'].map(lambda x: " " + str(x))
+df['test'] = df['education'] + df['salary_mean'].map(str)
+
+#%%
+# df['salary_mean'].max() - df['salary_mean'].min()
+df[['salary_mean']].apply(lambda x: x.max() - x.min())
+
+# %%
+ret = df[['salary_mean']].apply(lambda x: print(x), axis=0)
+# %%
+df1 = pd.DataFrame([[4, 9]] * 3, columns=['A', 'B'])
+df1.apply(np.sqrt, result_type='broadcast').apply(np.sum)
+
+df1.A = df1.A.apply(lambda x: x*3)
+# %%
+pd.concat([df[:1], df[-1:]])
+
+# %%
+df.iloc[[0, -1]]
+
+#%%
+df.iloc[[-1]]
+
+#%%
+df.append(df.iloc[7], ignore_index=True)
