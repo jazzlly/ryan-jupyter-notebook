@@ -121,3 +121,53 @@ df.iloc[[-1]]
 
 #%%
 df.append(df.iloc[7], ignore_index=True)
+
+#%%
+df.dtypes
+df.describe()
+
+#%%
+df.set_index('createTime')
+
+# %%
+rdf=pd.DataFrame(np.random.randint(
+   100, 9000, size=len(df)), columns=['random'])
+
+df = pd.concat([df, rdf], axis=1)
+
+#%%
+df['new'] = df['salary_mean'] - df['random']
+
+#%%
+df.isnull().values.any()
+# %%
+arr = np.array([[False, False, False, False],
+                [False, True, False, True]])
+arr.any(axis=0)
+
+#%%
+df['salary_mean'].astype(np.str)
+
+#%%
+len(df[df['salary_mean'] > 20000])
+
+#%%
+df.groupby(by='education')['education'].count()
+#%%
+from matplotlib import font_manager
+from matplotlib.pyplot import gca
+a = gca()
+
+fontP = font_manager.FontProperties()
+fontP.set_family('SimHei')
+fontP.set_size(14)
+
+for label in a.get_xticklabels():
+    label.set_fontproperties(fontP)
+
+plt.hist(df.education, align='left')
+
+
+
+
+# %%
