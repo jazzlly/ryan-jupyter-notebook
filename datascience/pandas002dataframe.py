@@ -1,3 +1,5 @@
+#%% memo crud
+
 #%% 
 import pandas as pd
 import numpy as np
@@ -154,6 +156,34 @@ data
 #%%
 del data['o']
 data
+
+#%% 删除
+df = pd.DataFrame(np.arange(12).reshape(3, 4),
+     columns=['A', 'B', 'C', 'D'])
+df
+'''
+   A  B   C   D
+0  0  1   2   3
+1  4  5   6   7
+2  8  9  10  11
+'''
+
+# Drop a row by index
+df.drop([0, 1])
+'''
+A  B   C   D
+2  8  9  10  11
+'''
+
+# Drop columns
+df.drop(['B', 'C'], axis=1)
+'''
+   A   D
+0  0   3
+1  4   7
+2  8  11
+'''
+
 
 #%%
 # data[4:] = [20] * 4

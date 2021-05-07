@@ -3,6 +3,10 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import random
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 解决中文乱码
+plt.rcParams['axes.unicode_minus'] = False  # 解决符号问题
 
 def randomDateTime():
    return datetime(
@@ -154,20 +158,43 @@ len(df[df['salary_mean'] > 20000])
 #%%
 df.groupby(by='education')['education'].count()
 #%%
-from matplotlib import font_manager
+# from matplotlib import font_manager
 from matplotlib.pyplot import gca
 a = gca()
 
-fontP = font_manager.FontProperties()
-fontP.set_family('SimHei')
-fontP.set_size(14)
+# fontP = font_manager.FontProperties()
+# fontP.set_family('SimHei')
+# fontP.set_size(14)
 
-for label in a.get_xticklabels():
-    label.set_fontproperties(fontP)
+# for label in a.get_xticklabels():
+#     label.set_fontproperties(fontP)
 
 plt.hist(df.education, align='left')
 
-
-
-
 # %%
+df['education'].unique()
+
+
+#%%
+df[df['categories'].isnull()]
+
+#%%
+
+df.set_index('createTime', inplace=True)
+# %%
+
+df['salary_mean'].plot()
+# %%
+
+plt.plot(df.sort_index()['salary_mean'])
+
+#%%
+df.reset_index()
+# %%
+df['salary_mean'].diff()
+
+#%%
+df['salary_mean'].pct_change()
+
+#%%
+df['salary_mean'].rolling(3).mean()
