@@ -10,11 +10,10 @@ pd.PeriodIndex -> [pd.Period, pd.Period, ...]
 pd.date_range(start, periods=3, freq='D') -> pd.DatetimeIndex
 (business day)
 pd.bdate_range(start, periods=3, freq='D') -> pd.DatetimeIndex
-
-pd.to_datetime([date_str, date_str]) -> pd.DatetimeIndex or pd.Timestamp
-
 pd.period_range(start, periods=3, freq='M') -> pd.PeriodIndex
 
+将字符串，epoch long等等转化为Timestamp
+pd.to_datetime([date_str, date_str]) -> pd.DatetimeIndex or pd.Timestamp
 
 '''
 
@@ -96,13 +95,11 @@ s = pd.Series(np.random.randint(len(dates)), index=dates)
 #%% pd.PeriodIndex的元素是pd.Period
 periods = [pd.Period('2019'), pd.Period('2020'), pd.Period('2021')]
 s = pd.Series(np.random.randint(len(periods)), index=periods)
-
 # PeriodIndex(['2019', '2020', '2021'], 
 # dtype='period[A-DEC]', freq='A-DEC')
 
 #%%
 periods = [pd.Period('2019'), pd.Period('2020'), pd.Period('2021')]
-
 
 #%% converting to timestamp
 pd.to_datetime('2021')
@@ -128,15 +125,61 @@ stamps = pd.date_range('2020-01-01', periods=3, freq='M')
 
 
 
+#%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# 日期索引
+rng = pd.date_range('2020', '2022', freq='BM')
+series = pd.Series(np.random.randn(len(rng)), index=rng)
+
+#%%
+print(series)
+print(series['1/31/2020'])
+
+print(series['2020-3']) # 通过月份直接访问
+print(series['2020-3':'2020-6']) # 通过月份直接访问, 双闭区间
+print(series['2020'])   # 通过年份直接访问
+# print(series['2020-03-03']) error
+
+#%%
+dft = pd.DataFrame(
+    np.random.randn(100000, 1),
+    columns=["A"],
+    index=pd.date_range("20130101", periods=100000, freq="T"))
+
+# 对于df, 推荐使用loc访问
+# dft['2013-01']     depreciate! 不确定是选择index还是column
+dft.loc['2013-01']
+
+#%% 切片的时候，是双臂区间。包括结束日期内所有时间
+dft["2013-1":"2013-2-28"]
+#%%
+dft["2013-1":"2013-2-28 00:00:00"]
 
 
+#%% 多级索引
+dft2 = pd.DataFrame(
+    np.random.randn(20, 1),
+    columns=["A"],
+    index=pd.MultiIndex.from_product(
+        [pd.date_range("20130101", periods=10, freq="12H"), ["a", "b"]]
+    ))
 
+dft2.loc['20130102']
 
+#%% slice vs match
+s = pd.Series(np.random.rand(1000), index=
+    pd.date_range("20130101 10:23:34", periods=1000, freq="S"))
 
+print(s.index.resolution)
 
+# print(s['2013-01-01 10:23:42:123'])  # 输入精度和分辨率一样, 返回scalar
+print(s['2013-01-01 10:23:42'])  # 输入精度和分辨率一样, 返回scalar
+print(s['2013-01-01 10:23'])     # 输入进度大于分辨率， 返回series
 
-
-
+#%%
+df = pd.DataFrame({
+    "a": np.random.randn(1000),
+    "b": np.random.randn(1000)
+    }, index=pd.date_range('2020-01-01', periods=1000, freq='T'))
 #%%
 index = pd.date_range('1/1/2000', periods=9, freq='T')
 series = pd.Series(range(9), index=index)
