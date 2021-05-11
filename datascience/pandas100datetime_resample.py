@@ -5,6 +5,8 @@
 底层结构
 pd.DatetimeIndex -> [pd.Timestamp, pd.Timestamp, ...]
 pd.PeriodIndex -> [pd.Period, pd.Period, ...]
+pd.TimedeltaIndex -> [pd.Timedelta, pd.Timedelta, ...]
+                    [pd.DateOffset]
 
 常用方法
 pd.date_range(start, periods=3, freq='D') -> pd.DatetimeIndex
@@ -15,6 +17,14 @@ pd.period_range(start, periods=3, freq='M') -> pd.PeriodIndex
 将字符串，epoch long等等转化为Timestamp
 pd.to_datetime([date_str, date_str]) -> pd.DatetimeIndex or pd.Timestamp
 
+
+pd.DateOffset()
+pd.offsets.BDay() 
+
+pd.Timestamp('xxx')
+pd.day_name()
+
+# 出习题集， 给未来的自己，考试
 '''
 
 #%%
@@ -166,14 +176,84 @@ dft2 = pd.DataFrame(
 dft2.loc['20130102']
 
 #%% slice vs match
-s = pd.Series(np.random.rand(1000), index=
-    pd.date_range("20130101 10:23:34", periods=1000, freq="S"))
+s = pd.Series(np.random.rand(1000), 
+    index=pd.date_range("20130101 10:23:34", periods=1000, freq="S"))
 
 print(s.index.resolution)
 
 # print(s['2013-01-01 10:23:42:123'])  # 输入精度和分辨率一样, 返回scalar
 print(s['2013-01-01 10:23:42'])  # 输入精度和分辨率一样, 返回scalar
 print(s['2013-01-01 10:23'])     # 输入进度大于分辨率， 返回series
+
+
+dft = pd.DataFrame(np.random.randn(len(s.index)), index=s.index)
+dft.loc['2013-01-01 10:23:42'] # 返回series
+dft.loc['2013-01-01 10:23'] # 返回dataframe
+
+#%% truncate: 留下[before, after)半开区间的值
+
+rng2 = pd.date_range("2011-01-01", "2012-01-01", freq="W")
+ts2 = pd.Series(np.random.randn(len(rng2)), index=rng2)
+ts2.truncate(before="2011-11", after="2011-12")
+# equal ts2["2011-11":"2011-11-30"], 但是需要计算11的月底
+'''
+2011-11-06    0.437823
+2011-11-13 - 0.293083
+2011-11-20 - 0.059881
+2011-11-27    1.252450
+Freq: W-SUN, dtype: float64
+'''
+
+ts2["2011-11":"2011-12"]
+'''
+2011-11-06    0.437823
+2011-11-13 - 0.293083
+...
+2011-12-18 - 0.286539
+2011-12-25    0.841669
+Freq: W-SUN, dtype: float64
+'''
+
+#%%
+ts = pd.Timestamp('2020-01-01')
+print(ts.day_name())
+print(ts + pd.DateOffset(days=1))
+print(ts + pd.offsets.BDay() * 4)
+
+#%% date offset可以将一个时间点向前或向后推进
+ts = pd.Timestamp("2018-01-06 00:00:00")
+print(ts.day_name())
+
+offset = pd.offsets.BusinessHour(start='9:00')
+print(offset.rollforward(ts))
+
+#%% normalize将时间设置为0点
+ts = pd.Timestamp('2020-01-01 20:00')
+day = pd.offsets.Day()
+
+print(day.apply(ts))
+print(day.apply(ts).normalize())
+
+#%%
+ts = pd.Timestamp('2014-01-01 22:00')
+hour = pd.offsets.Hour()
+
+print(hour.apply(ts))
+print(hour.apply(ts).normalize())
+
+#%%
+pd.offsets.MonthBegin(n=1).rollforward(pd.Timestamp('2014-01-02'))
+
+pd.offsets.MonthBegin(n=1).rollback(pd.Timestamp('2014-01-02'))
+
+#%%
+pd.offsets.MonthEnd(n=1).rollforward(pd.Timestamp('2014-01-02'))
+pd.offsets.MonthEnd(n=1).rollback(pd.Timestamp('2014-01-02'))
+
+#%%
+#%% DateOffSet, freq字符串对应的对象, 类似timedelta
+
+
 
 #%%
 df = pd.DataFrame({
