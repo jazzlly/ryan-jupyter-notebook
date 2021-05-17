@@ -1,4 +1,26 @@
-# -*- coding: utf-8 -*-
+'''
+list是不可变的列表
+C: 原始创建方法，(), tuple()
+R: 下标: [], 下标可以为负数; 
+   切片: [start:end:step], [start:end), 
+        切片访问，半开区间
+    查询 e1 in list
+    
+U: append(单个元素), extend(集合),  insert(pos, element)
+    list1 + list1
+
+D: remove(e) 删除第一个
+    pop(pos) 右边出栈
+
+特点：
+unpacking, *实参, 下划线参数
+
+常用方法：
+    拼接 t1+t2, 反序， 排序, count
+
+特殊方法
+    one element tuple, 如何unpacking one element tuple/list
+'''
 
 #%%
 # create a list

@@ -1,4 +1,7 @@
 #%%
+from re import L
+
+
 def afunc(a, b, c):
     print('a:%s, b%s, c%s' % (a,b,c))
     print(f'a:{a}, b:{b}, c:{c}')
@@ -23,6 +26,15 @@ func2(10)
 func2(30, 20)
 func2(b=10, a=30)
 
+func2(*list('ab')) # *list()将list拆分成参数
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+pitchers = [('Nolan', 'Ryan'), ('Roger', 'Clemens'),
+            ('Curt', 'Schilling')]
+first_names, last_names = zip(*pitchers)
+first_names
+# last_names
+
 #%% 可变长参数
 def afunc(a, *others):
     print(type(others)) # 可变长参数被封装成tuple
@@ -30,6 +42,16 @@ def afunc(a, *others):
 
 afunc(1,2,3)
 afunc(23, 'foo', 'bar')
+
+#%%
+afunc(2, list('xyz')) # list作为单个参数传递
+                      # tuple里面是一个list
+# %%
+afunc(2, *list('xyz')) # list
+
+# %%
+afunc(*list('xyz'))  # 函数
+#%% 可变长
 
 #%% 字典参数
 def afunc(a, **kwargs):

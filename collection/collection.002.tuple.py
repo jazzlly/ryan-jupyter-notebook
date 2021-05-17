@@ -1,18 +1,8 @@
-`# -*- coding: utf-8 -*-
-"""
-Created on Fri May  8 05:59:32 2020
 
-@author: jiang
-"""
-
-#%% np unpacking
-import numpy as np
-
-r1, r2, r3 = np.random.randn(3, 10)
-r1, r2, r3
 
 #%% tuple是不可变的list
-
+tup = (1, 2, 3)
+tup
 #%%
 tup = 1, 2, 3
 tup
@@ -30,6 +20,20 @@ tup = tuple('1234')
 tup[0]
 
 #%%
+print(tup[-1])
+#%% 下面几个切片等效
+tup[:], tup[::], tup[0:len(tup):1]
+
+#%%
+tup[-1:], tup[len(tup)-1:]
+
+#%%
+'a' in tuple('abc')
+
+#%%
+'c' not in tuple('xyz')
+
+#%%
 tuple('123') + tuple('456')
 
 #%% tuple multiply
@@ -39,11 +43,21 @@ tuple('123') * 2
 a, b, c = tuple('123')
 print(f'a:{a}, b:{b}, c:{c}')
 
+
+#%% unpack
+tp = (1, 2, 3, tuple('ab'))
+a, b, c, (x, y) = tp
+a, b, c, x, y
+
 #%% swap variable
 a, b = 1, 2
 a, b = b, a
 
 print(f'a:{a}, b:{b}')
+
+#%% np unpacking
+r1, r2, r3 = np.random.randn(3, 10)
+r1, r2, r3
 
 #%% tuple unpacking
 
@@ -97,11 +111,6 @@ print(tup)
 tup += ('foo',)
 print(tup)
 
-#%%
-print(tup[-1])
-
-#%%
-print(tup[1:3])
 
 #%%
 print(list(tup))
