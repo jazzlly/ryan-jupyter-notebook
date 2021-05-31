@@ -1,19 +1,21 @@
 # %%
-
 from typing import List
 
 
-def twoSum(nums, target):
-    # def twoSum(nums: List[int], target: int) -> List[int]:
-    myDict = dict()
-    for i in range(0, len(nums)):
-        j = myDict.get(target - nums[i], -1)
-        if (j != -1):
-            return [i, j]
-        myDict[nums[i]] = i
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        adict = {}
+        for i, v in enumerate(nums):
+            sub = target - v
+            if sub in adict:
+                return (adict.get(sub), i)
 
-    return []
+            adict[v] = i
 
-
+        return []
 # %%
-print(twoSum([2, 7, 11, 15], 9))
+s = Solution()
+print(s.twoSum([2, 7, 11, 15], 9))
+print(s.twoSum([3, 2, 4], 6))
+print(s.twoSum([3, 3], 6))
+
